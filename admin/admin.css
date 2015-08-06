@@ -1,0 +1,190 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+
+/* css reset for used elements*/
+html, body, main, header, nav, section, address, footer, div, span, h1, h2, p, blockquote, pre, img, a, form, time, textarea, input, b, u, i, center, dl, dt, dd, ol, ul, li {
+margin:0;
+padding:0;
+border:0;
+font-size:medium;
+font:inherit;
+vertical-align:baseline;
+box-sizing: border-box; 
+}
+
+html {
+background-color:#FAFAFA;
+font-family:'Lato',sans-serif;
+height:100%;
+}
+
+body {
+max-width:200mm;
+margin:0px auto;
+background-color:#FFF;
+min-height:100%;
+}
+
+main {
+display:block;
+padding:30px 10px;
+}
+
+nav {
+background:linear-gradient(to left,#EEE 0%,#999 100%);
+padding:5px 5px;
+overflow: auto;
+height:39px;
+width:100%;
+margin:0 auto;
+position:fixed;
+bottom:0;
+border-top:1px solid #F80;
+}
+
+article {
+background-color:#FFF;
+line-height:140%;
+}
+
+aside {
+background-color:#FFF;
+padding:30px 10px;
+line-height:140%;
+}
+
+header {
+display:block;
+margin-bottom:1em;
+}
+
+footer {
+text-align:center;
+color:#BBB;
+font-size:small;
+font-weight:bold;
+}
+
+h1 {
+color:#F80;
+font-size:xx-large;
+font-weight:bold;
+line-height:120%;
+}
+
+.meta {
+display:block;
+color:#BBB;
+font-size:small;
+font-weight:bold;
+}
+
+time {
+display:inline;
+}
+
+h2 {
+color:#F80;
+font-size:medium;
+font-weight:bold;
+margin-top:1.5em;
+margin-bottom:0.5em;
+}
+
+hr {
+color:#F80;
+background-color:#F80;
+border:#F80;
+height:1px;
+}
+
+p {
+margin-bottom:0.5em;
+}
+
+details {
+display:block;
+margin:1.5em auto;
+}
+
+.link, .hashtag, .page, .mail {
+color:#F80;
+text-decoration:none;
+}
+
+b {
+font-weight:bold;
+}
+
+i {
+font-style:italic;
+}
+
+form {
+}
+
+label {
+display:block;
+width:9em;
+float:left;
+vertical-align:top;
+}
+
+input {
+display:block;
+width:calc(100% - 9em);
+border-radius:5px;
+border:1px solid #bbb;
+background-color:#FAFAFA;
+}
+
+#save {
+color:#FFF;
+background:#999;
+border-radius:5px;
+border:1px solid #bbb;
+text-decoration:none;
+font-weight:bold;
+padding:2px 4px;
+width:60%;
+margin:0px auto;
+}
+
+textarea {
+display:block;
+width:100%;
+border-radius:5px;
+border:1px solid #bbb;
+margin: -1px;
+background-color:#FAFAFA;
+resize:vertical;
+}
+
+ul {
+list-style:none;
+}
+
+img {
+width:100%;
+margin:5px 0;
+border-radius: 5px;
+}
+
+.menu {
+color:#FFF;
+background:transparent;
+text-decoration:none;
+font-weight:bold;
+padding:2px 5px;
+}
+
+.menu:hover {
+color: #F80;
+}
+
+.menu {
+float: left;
+}
+
+@media only screen and (min-width: 200mm) {
+	nav { max-width: 200mm }
+}
