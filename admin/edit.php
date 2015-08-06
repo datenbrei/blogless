@@ -22,6 +22,8 @@
 		$html = '<ul class="articlelist">' . "\n";
 		$articles = get_article_list();
 		foreach ($articles as $name) {
+			if ($name == '040')
+				continue;
 			$article = get_article($name);
 			$html .= '<li>';
 			$html .= $article['created'];
