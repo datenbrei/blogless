@@ -1,4 +1,4 @@
-# blogless
+# Blogless
 The Blogless publishing system is for web writers. Just publish, share your texts with friends and don't think about the rest.
 
 >A website with the main purpose of having people read content would best serve its readers with almost nothing else but what’s needed for the reading experience  — Leo Babauta
