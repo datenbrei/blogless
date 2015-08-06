@@ -16,6 +16,16 @@
 		die("Access denied");
 	}
 	
+	function theme_chooser() {
+		$html = '<select name="theme">' . "\n";
+		$themes = get_theme_list();
+		foreach ($themes as $theme) {
+			$html .= '<option value="' . $theme . '" selected>' . ucfirst($theme) . '</option>';
+		}
+		$html .= '</select>' . "\n";
+		return $html;
+	}			
+
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		$html = "<!DOCTYPE html> \n";
 		$html .= "<html> \n";
@@ -37,7 +47,7 @@
 		$html .= '<p><label for="baseurl">Base URL:</label><input type="url" name="baseurl"  placeholder="The Base URL of your Domain" value="' . $config['baseurl'] . '"></p>' . "\n";
 		$html .= '<p><label for="locale">Locale Code: </label><input type="text" name="locale" placeholder="Locale Code (en_US,de_DE,...)" value="' . $config['locale'] . '" required ></p>' . "\n";
 		$html .= '<p><label for="dateformat">Date Format: </label><input type="text" name="dateformat" placeholder="e.g. for UK: %A, the %d%S of %B %Y (optional)" value="' . $config['dateformat'] . '" ></p>' . "\n";
-		$html .= '<p><label for="theme">Theme:</label><select name="theme"><option value="default" selected>Default</option><option value="lessy">Lessy</option></select></p>' . "\n";
+		$html .= '<p><label for="theme">Choose Theme: </label>' . theme_chooser() . '</p>';
 		$html .= '<h2>Article Defaults</h2>' . "\n";
 		$html .= '<p><label for="author">Author: </label><input type="text" name="author" placeholder="Author Name" value="' . $config['author'] . '" required ></p>' . "\n";
 		$html .= '<p><label for="email">Author\'s Email: </label><input type="text" name="email" placeholder="Author\'s Email (will not be shown in the Public)" value="' . $config['email'] . '" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></p>' . "\n";

@@ -78,6 +78,19 @@
 		$dir = new DirectoryIterator('../');
 		$files = array();
 		foreach ($dir as $file) {
+			$filename = $file->getFilename();
+			if ($file->isDir() && !$file->isDot() && $filename != 'admin' && substr($filename,0,1) != ".") {
+				$files[$file->getMTime()] = $file->getFilename();
+			}
+		}
+		krsort($files);
+		return $files;
+	}
+
+	function get_theme_list() {
+		$dir = new DirectoryIterator('themes/');
+		$files = array();
+		foreach ($dir as $file) {
 			if ($file->isDir() && !$file->isDot() && $file->getFilename() != 'admin') {
 				$files[$file->getMTime()] = $file->getFilename();
 			}
