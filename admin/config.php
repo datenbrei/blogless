@@ -9,9 +9,9 @@ $config["author"] = 'The great Unknown';
 $config["email"] = 'martin@datenbrei.de';
 $config["profile"] = 'http://martin@datenbrei.de';
 $config["twitter"] = '';
-$config["rss"] = 'yes';
-$config["sitemap"] = 'yes';
-$config["articlelist"] = 'yes';
-$config["pingback"] = 'yes';
+$config["rss"] = 'no';
+$config["sitemap"] = 'no';
+$config["articlelist"] = 'no';
+$config["pingback"] = 'no';
 $config["theme"] = 'default';
 ?>
