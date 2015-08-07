@@ -9,6 +9,10 @@
 	// Set internal character encoding to 'UTF-8' - needed for some functions below
 	// Not needed since PHP 5.6 with default_charset = UTF-8
 
+	if (is_readable('check.php'))
+		require('check.php');
+		
+	
 	require('include.php');
 
 	// Check Login
