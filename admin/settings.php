@@ -93,7 +93,7 @@
 		$file .= '$config["sitename"] = ' . "'" . $sitename . "';\n";
 		$file .= '$config["baseurl"] = ' . "'" . $baseurl . "';\n";
 		$file .= '$config["locale"] = ' . "'" . $locale . "';\n";
-		$file .= '$config["language"] = ' . "'" . substr($language, 0, 2) . "';\n";
+		$file .= '$config["language"] = ' . "'" . substr($locale, 0, 2) . "';\n";
 		$file .= '$config["dateformat"] = ' . "'" . $dateformat . "';\n";
 		$file .= '$config["author"] = ' . "'" . $author . "';\n";
 		$file .= '$config["email"] = ' . "'" . $email . "';\n";
