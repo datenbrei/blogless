@@ -174,8 +174,6 @@
 		$html .= '<meta name="gravatar" content="http://www.gravatar.com/avatar/' . md5($email) . '">' . "\n";
 		if ($profile) 
 			$html .= '<link rel="author" href="' . $profile . '">' . "\n";
-		$html .= '<link rel="alternate" href="' . $config['baseurl'] . $dirname . '" hreflang="de">' . "\n";
-		$html .= '<link rel="canonical" href="' . $config['baseurl'] . $dirname . '">' . "\n";
 
 		// pingback server to be implemented
 		//if ($config['pingback'] == 'yes')
@@ -244,9 +242,9 @@
 		// gravatar picture with link to author profile, if given
 		if ($image) 
 			if ($profile != '') 
-				$html .= '<a href="' . $profile . '" itemprop="author" rel="author"><img id="gravatar" itemprop="image" src="' . $image . '" alt="Article Header"></a>' . "\n";
+				$html .= '<a href="' . $profile . '" itemprop="author" rel="author"><img id="gravatar" itemprop="image" src="' . $image . '" title="Author" alt="Article Header"></a>' . "\n";
 			else
-				$html .= '<img id="gravatar" itemprop="image" src="' . $image . '" alt="Article Header">' . "\n";
+				$html .= '<img id="gravatar" itemprop="image" src="' . $image . '" title="Author" alt="Author">' . "\n";
 		
 		$html .= '</header>' . "\n";
 		
