@@ -26,9 +26,9 @@
 				continue;
 			$article = get_article($name);
 			$html .= '<li>';
-			$html .= $article['created'];
+			$html .= htmlspecialchars($article['created']);
 			$html .= ' &#8212; ';
-			$html .= '<a class="page" href="/' . $name . '/">' . $article['title'] . '</a>';
+			$html .= '<a class="page" href="/' . htmlspecialchars($name) . '/" title="' . htmlspecialchars($article['description']) . '">' . htmlspecialchars($article['title']) . '</a>';
 			$html .= '<p>' . $article['description'] . '</p>';
 			$html .= '</li>' . "\n";
 		}
@@ -238,7 +238,7 @@
 			$html .= '<time itemprop="datePublished" datetime="' . $created . '">' . mystrftime($config['dateformat'], strtotime($created)) . '</time>' . "\n";	
 		else
 			$html .= '<time itemprop="datePublished" datetime="' . $created . '">' . strftime('%x', strtotime($created)) . '</time>' . "\n";	
-		$html .= '<time itemprop="dateModified" datetime="' . date('Y-m-d', time()) . '"></time></div>' . "\n";	
+		$html .= '<time itemprop="dateModified" datetime="' . date('Y-m-d', time()) . '"></time>' . "\n";	
 		$html .= '</div>' . "\n";	
 
 		// gravatar picture with link to author profile, if given
