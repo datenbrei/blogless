@@ -32,11 +32,12 @@
 			}
 		}
 		else {
-			$ok = false;
 			if (touch($filename))
-				$html = '<p style="color:red;">☒  —  "' . $filename . '" does not exist, but could be created by Blogless later...</p>' . "\n";
-			else 
+				$html = '<p style="color:green;">☑  —  "' . $filename . '" does not exist, but could be created by Blogless later...</p>' . "\n";
+			else { 
 				$html = '<p style="color:red;">☒  —  "' . $filename . '" does not exist, and can not be created by webserver user "' . get_current_user(). '" because of wrong directory permissions!</p>' . "\n";
+				$ok = false;
+			}
 			unlink($filename);
 		}
 		
@@ -113,13 +114,18 @@
 		$html .= check_file('config.php');
 		$html .= check_file('password.php');
 		$html .= check_file('check.php');
+		$html .= '<hr>' . "\n";
 		
 		if ($ok) {
-			$html .= '<hr>' . "\n";
 			$html .= '<p>Everything ok. This check is no longer needed, the check.php file in your admin directory is now deleted!</p>' . "\n";
 			$html .= '<br>' . "\n";
 			$html .= '<p><a id="save" href="index.php">Go on and use Blogless by clicking here!</a></p>' . "\n";
 			unlink('check.php');
+		}
+		else {
+			$html .= '<p>Your Installation will not run Blogless! Check and fix your setup and run this test again by clicking below!</p>' . "\n";
+			$html .= '<br>' . "\n";
+			$html .= '<p><a id="save" href="index.php">Check again!</a></p>' . "\n";
 		}
 		$html .= "</body>";
 		$html .= "</html>";
