@@ -9,3 +9,6 @@ Blogless generates static HTML pages and lets you manage them from a simple to h
 
 ##Status
 Actually Blogless is in alpha stage - what you can read here is it's result, but the code is far from beeing perfect. Indeed, the initial release was written in just three days. Just put it in the root of you webserver and call it - manual included as index.html.
+
+##Prerequisites
+Blogless needs at least PHP version 5.5, released at 20th of June 2013. Also the session handling need to be set up in php.ini. When starting Blogless will do the needed checks automatically and tell you, if your setup is sufficient.
