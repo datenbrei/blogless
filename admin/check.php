@@ -8,6 +8,18 @@
 
 	$ok = true;
 
+	function check_version() {
+		if (version_compare(PHP_VERSION, '5.5.0') >= 0) {
+			$html = '<p style="color:green;">☑  — Your PHP version ' . PHP_VERSION . ' is ok for Blogless!</p>' . "\n";
+			$ok = false;
+		}
+		else {
+			$html = '<p style="color:red;">☒  — You have PHP version ' . PHP_VERSION . ', which is not sufficient. You need at least version 5.5 because of support for "password_verify"!</p>' . "\n";
+		}
+
+		return $html;
+		}
+	
 	function check_file($filename) {
 		global $ok;
 		if (file_exists($filename)) {
@@ -90,7 +102,8 @@
 		$html .= '<h1>Check PHP Setup for Blogless</h1>' . "\n";
 		$html .= '</header>' . "\n";
 
-		$html .= '<h2>Check Session Setup</h2>' . "\n";
+		$html .= '<h2>Check PHP Setup</h2>' . "\n";
+		$html .= check_version();
 		$html .= check_sessions();
 		$html .= '<h2>Check Directory Permissions</h2>' . "\n";
 		$html .= check_dir('Admin', '.');
