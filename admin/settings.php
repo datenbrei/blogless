@@ -88,6 +88,10 @@
 		$pingback = !empty($_POST['pingback']) ? 'yes' : 'no';
 		$theme = !empty($_POST['theme']) ? $_POST['theme'] : 'default';
 		
+		//Fix inconvenient input
+		if (substr($baseurl, -1) != '/')
+			$baseurl .= '/';
+			
 		$file = '<?php' . "\n";
 		$file .= '$config = [];' . "\n";
 		$file .= '$config["sitename"] = ' . "'" . $sitename . "';\n";
