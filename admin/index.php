@@ -54,8 +54,9 @@
 
 		$html .= "</main> \n";
 		$html .= '<nav id="botnav">';
-		$html .= '<a class="menu" id="new" href="edit.php">New</a>';
-		$html .= '<a class="menu" id="index" href="edit.php?article=index">Index</a>';
+		$html .= '<a class="menu" id="view" href="../">View Site</a>';
+		$html .= '<a class="menu" id="new" href="edit.php">New Article</a>';
+		$html .= '<a class="menu" id="index" href="edit.php?article=index">Edit Index</a>';
 		$html .= '<a class="menu" id="settings" href="settings.php">Settings</a>';
 		$html .= '<a class="menu" id="logout" href="logout.php">Logout</a>';
 		$html .= '</nav>' . "\n";
