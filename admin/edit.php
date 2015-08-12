@@ -183,13 +183,15 @@
 	}			
 	
 	// Write article to disk, ping remote hosts and update sitemap and rss
-	function save_article ($config, $dirname, $html) {
+	function save_article ($config, $dirname, $created, $html) {
 		if (!$dirname) {
 			file_put_contents('../index.html', $html);
 		}
 		else {
 			@mkdir ('../' . $dirname);
 			file_put_contents('../' . $dirname . 'index.html', $html);
+			@touch('../' . $dirname, strtotime($created));
+			touch('../' . $dirname . 'index.html', strtotime($created));
 		}
 		if ($config['sitemap'] == 'yes')
 			update_sitemap();
@@ -322,7 +324,7 @@
 		$html .= '</html>' . "\n";
 		//file_put_contents('output.txt', $html);
 	
-		save_article ($config, $dirname, $html);
+		save_article ($config, $dirname, $created, $html);
 		header('Location: index.php');
 	}
 
