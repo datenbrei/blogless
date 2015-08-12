@@ -10,33 +10,31 @@
 <meta name="keywords" content="blogless, usage">
 <meta name="generator" content="blogless">
 <meta name="gravatar" content="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43">
-<link rel="author" href="http://martin.datenbrei.de">
-<link rel="alternate" href="http://localhost/" hreflang="de">
-<link rel="canonical" href="http://localhost/">
-<link rel="stylesheet" href="admin/themes/default/stylesheet.css" type="text/css" media="all">
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="alternate" href="http://localhost/" hreflang="en">
-<link rel="canonical" href="http://localhost/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Blogless - Just Writing">
 <meta property="og:url" content="http://localhost/">
 <meta property="og:description" content="A short Introduction to Blogless">
 <meta property="og:site_name" content="localhost">
 <meta property="og:image" content="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43.jpg?s=180">
+<link rel="author" href="http://martin.datenbrei.de">
+<link rel="stylesheet" href="admin/themes/default/stylesheet.css" type="text/css" media="all">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="alternate" href="http://localhost/" hreflang="en">
+<link rel="canonical" href="http://localhost/">
 </head>
 
 <body>
-<main>
-<article lang="en" itemscope itemtype="http://schema.org/Article">
+<article role="main" lang="en" itemscope itemtype="http://schema.org/Article">
 <header>
+<a id="sitename" role="banner" href="http://localhost/">localhost</a>
 <div>
 <h1 itemprop="headline">Blogless - Just Writing</h1>
 <address><a href="http://martin.datenbrei.de" itemprop="author" rel="author">Martin Döring</a></address> &#8212;
 <time itemprop="datePublished" datetime="2015-07-19">Sunday, the 19th of July 2015</time>
-<time itemprop="dateModified" datetime="2015-08-07"></time></div>
+<time itemprop="dateModified" datetime="2015-08-12"></time>
 </div>
-<a href="http://martin.datenbrei.de" itemprop="author" rel="author"><img id="gravatar" itemprop="image" src="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43.jpg?s=180" alt="Article Header"></a>
+<a href="http://martin.datenbrei.de" itemprop="author" rel="author"><img id="gravatar" itemprop="image" src="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43" title="Author" alt="Author"></a>
 </header>
 <div id="content" itemprop="articleBody">
 <div class="text">
@@ -45,18 +43,19 @@
 <h2>Using Blogless</h2>
 <p>Go into your webbrowser and call</p>
 <pre>http://your.domain.xx/admin/</pre>
-<p>You will have to set an initial password. If you want to change it, just delete password.php. It will be generated from skretch next time when using Blogless. Now log in and after that you can do four things with it:</p>
+<p>After passing the initial platform check, you will have to set an initial password to secure your website. If you forget it or want to change it later, just delete password.php. It will be generated from skretch next time when using Blogless. Now log in and after that you can do the following:</p>
 <ol>
 <li>First press <strong>Settings</strong> to set some article Defaults and decide if you would like to generate an RSS feed, a sitemap.xml (good for Google) and if you would like to show a list of articles at the bottom of your sites homepage</li>
-<li>Press <strong>New</strong> to write a new article (empty the form fields to see a description)</li>
-<li>Press <strong>Index</strong> to change this website's homepage index.html</li>
+<li>Press <strong>New Article</strong> to write a new article (empty the form fields to see a description)</li>
+<li>Press <strong>Edit Index</strong> to change this website's homepage index.html</li>
+<li>Press <strong>View Site</strong> to visit your website's homepage</li>
 <li><strong>Logout</strong></li>
 </ol>
 <h2>Default Settings</h2>
-<p>It is best to first go to the settings page and provide some defaults for your articles, like the default author for new articles, his web profile and some other settings. You can always make individual settings for each article, for example for guest articles. If the twitter id is set, your articles will appear as a nice "<a href="http://www.blindfiveyearold.com/twitter-cards-are-rich-snippets-for-tweets">Twitter Cards</a>" (of type <a href="https://dev.twitter.com/cards/types/summary">summary</a>), if referenced in a tweet.</p>
-<p>Also check, if the automaticall set base url is right (it should be - you could change it to the real site's name, if you are generating your articles offline and load them up).</p>
+<p>It is best to first go to the settings page and provide some defaults for your articles, like the default author for new articles, his web profile and some other settings. You can always make individual settings for each article later, for example for guest articles. If the twitter id is set, your articles will appear as a nice "<a href="http://www.blindfiveyearold.com/twitter-cards-are-rich-snippets-for-tweets">Twitter Cards</a>" (of type <a href="https://dev.twitter.com/cards/types/summary">summary</a>), if referenced in a tweet.</p>
+<p>Also check, if the automatically guessed base url is right (it should be - you could change it to the real site's url, if you are generating your articles offline and load them up).</p>
 <h2>Functionalities</h2>
-<p>After that decide, if you want to have certain functionalities switched on:</p>
+<p>Now decide, if you want to have certain functionalities switched on:</p>
 <ul>
 <li>Sitemap - this gives Google and other web crawlers the chance to get an overview of your site. It is good to switch it on, if you would like to get every article you did write found by Google or other search engines.</li>
 <li>RSS Feed - Switch this on if you want to provide a feed for your website. Well, you would make a blog from blogless.</li>
@@ -64,13 +63,12 @@
 <li>Pingback - If you switch this on, when saving a newly written article Blogless will inform every other referenced blog, so that automatically comment links will be added for their articles. This means, that you will honor the original authors referenced by you and also, that possibly links to your article will be generated on their side.</li>
 </ul>
 <h2>Write a new Article</h2>
-<p>Per default the article name is the actual date in ISO format (YYYY-MM-DD). Keep it, if you like to just write one article a day or less. In the end you are completely free to name your articles how you like. Try to better just use ASCII characters and dashes. It will work with any unicode character, but the url may look a bit crazy in this case, hard to remember.</p>
-<p>If you edit the sites index.html file there will be no possibillity to change the filename, it's just index.html</p>
+<p>Per default the article name is the actual date in ISO format (YYYY-MM-DD). Keep it, if you like to just write one article a day or less. For me it works pretty well. In the end you are completely free to name your articles how you like. Try to better use just ASCII characters and dashes. It will work with any unicode character, but the url may look a bit crazy in this case, hard to remember.</p>
+<p>If you edit the sites index.html file there will be no possibillity to change the filename, it's just index.html, the homepage of your site. </p>
 </div>
 </div>
 </article>
-</main>
 <hr>
-<footer><a href="http://localhost/">localhost</a></footer>
+<footer role="contentinfo" ><a href="http://localhost/">localhost</a></footer>
 </body>
 </html>
