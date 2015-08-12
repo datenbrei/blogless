@@ -77,7 +77,7 @@
 	function get_article_list() {
 		$dir = new DirectoryIterator('../');
 		$files = array();
-		$unique = 0;
+		$unique = 1000;
 		foreach ($dir as $file) {
 			$filename = $file->getFilename();
 			if ($file->isDir() && !$file->isDot() && $filename != 'admin' && substr($filename,0,1) != ".") {
@@ -92,7 +92,7 @@
 	function get_theme_list() {
 		$dir = new DirectoryIterator('themes/');
 		$files = array();
-		$unique = 0;
+		$unique = 1000;
 		foreach ($dir as $file) {
 			if ($file->isDir() && !$file->isDot() && $file->getFilename() != 'admin') {
 				$files[$file->getMTime() . $unique] = $file->getFilename();
@@ -106,7 +106,7 @@
 	function get_file_list($path) {
 		$dir = new DirectoryIterator($path);
 		$files = array();
-		$unique = 0;
+		$unique = 1000;
 		foreach ($dir as $file) {
 			if (!$file->isDir()) {
 				$files[$file->getMTime() . $unique] = $file->getFilename();
