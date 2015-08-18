@@ -42,7 +42,7 @@
 		if ($config['baseurl'] == '') 
 			$config['baseurl'] = ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/';
 		$html .= '<form method="post" action="settings.php" autocomplete="off">' . "\n";
-		$html .= '<h2>General</h2>' . "\n";
+		$html .= '<h2>Site Configuration</h2>' . "\n";
 		$html .= '<p><label for="sitename">Site Name:</label><input type="text" name="sitename"  placeholder="The Name of your Website" value="' . $config['sitename'] . '"></p>' . "\n";
 		$html .= '<p><label for="baseurl">Base URL:</label><input type="url" name="baseurl"  placeholder="The Base URL of your Domain" value="' . $config['baseurl'] . '"></p>' . "\n";
 		$html .= '<p><label for="locale">Locale Code: </label><input type="text" name="locale" placeholder="Locale Code (en_US,de_DE,...)" value="' . $config['locale'] . '" required ></p>' . "\n";
@@ -53,15 +53,15 @@
 		$html .= '<p><label for="email">Author\'s Email: </label><input type="text" name="email" placeholder="Author\'s Email (will not be shown in the Public)" value="' . $config['email'] . '" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></p>' . "\n";
 		$html .= '<p><label for="profile">Author\'s Profile: </label><input type="url" name="profile" placeholder="Author\'s Web Profile" value="' . $config['profile'] . '"></p>' . "\n";
 		$html .= '<p><label for="twitter">Twitter: </label><input type="text" id="twitter" name="twitter" pattern="^@[A-Za-z0-9_]{1,15}$" placeholder="Your Twitter ID" value="' . $config['twitter'] . '" /></p>' . "\n";
-		$html .= '<h2>Functionalities</h2>' . "\n";
+		$html .= '<h2>Site Functionalities</h2>' . "\n";
 		$flag = $config['rss'] == 'yes' ? 'checked' : '';
-		$html .= '<p><label for="rss">RSS-Feed: </label><input type="checkbox" id="rss" name="rss" ' . $flag . '>' . "<br>\n";
+		$html .= '<p><label for="rss">RSS-Feed: </label><input type="checkbox" id="rss" name="rss" ' . $flag . '></p>' . "\n";
 		$flag = $config['sitemap'] == 'yes' ? 'checked' : '';
-		$html .= '<p><label for="sitemap">Sitemap: </label><input type="checkbox" id="sitemap" name="sitemap" ' . $flag . '>' . "<br>\n";
+		$html .= '<p><label for="sitemap">Sitemap: </label><input type="checkbox" id="sitemap" name="sitemap" ' . $flag . '></p>' . "\n";
 		$flag = $config['articlelist'] == 'yes' ? 'checked' : '';
-		$html .= '<p><label for="articlelist">Article List: </label><input type="checkbox" id="articlelist" name="articlelist" ' . $flag . '>' . "<br>\n";
+		$html .= '<p><label for="articlelist">Article List: </label><input type="checkbox" id="articlelist" name="articlelist" ' . $flag . '></p>' . "\n";
 		$flag = $config['pingback'] == 'yes' ? 'checked' : '';
-		$html .= '<p><label for="pingback">Enable Pingback: </label><input type="checkbox" id="pingback" name="pingback" ' . $flag . '>' . "<br>\n";
+		$html .= '<p><label for="pingback">Enable Pingback: </label><input type="checkbox" id="pingback" name="pingback" ' . $flag . '></p>' . "\n";
 		$html .= '<br>';
 		$html .= '<input id="save" type="submit" value="Save">';
 
