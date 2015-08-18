@@ -8,7 +8,7 @@ Blogless is some kind of anti-blog. No subscribers, no community stress, no excu
 Blogless generates static HTML pages and lets you manage them from a simple to handle online interface. New articles can be written and later changed again. All the pretty SEO stuff, like descriptions, the now useless keywords, author name and profile, open graph meta infos and all that is included without beeing in the way — automagically.
 
 ##Status
-Actually Blogless is in alpha stage - what you can read here is it's result, but the code is far from beeing perfect. Indeed, the initial release was written in just three days. Just put it in the root of you webserver and call it - manual included as index.html.
+Actually Blogless is in alpha stage and the code is far from beeing perfect. Indeed, the initial release was written in just three days. Just put it in the root of you webserver and call it - manual included as index.html.
 
 ##Prerequisites
 Blogless needs at least PHP version 5.5, released at 20th of June 2013. Also session handling needs to be set up in php.ini. When starting, Blogless will do the needed checks automatically and tell you, if your setup is sufficient.
