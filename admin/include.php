@@ -26,6 +26,8 @@
 		$files = get_article_list();
 		foreach ($files as $name) {
 			$article = get_article($name);
+			if ($article['draft'])
+				continue;
 			$xml .= "<url>\n";
 			$xml .= '<loc>' . $config['baseurl'] . $name . "/index.html</loc>\n";
 			$xml .= '<xhtml:link rel="alternate" hreflang="' . $article['language'] . '" href="' . $config['baseurl'] . $name . '/index.html" />' . "\n";
@@ -57,6 +59,8 @@
 		$files = get_article_list();
 		foreach ($files as $filename) {
 			$article = get_article($filename);
+			if ($article['draft'])
+				continue;
 			$pagename = $article['title'];
 			$content = $article['content'];
 			$description = $article['description'];
@@ -144,6 +148,7 @@
 			$article['created'] = !empty($tags['created']) ? $tags['created'] : '';
 			$article['description'] = !empty($tags['description']) ? htmlspecialchars_decode($tags['description']) : '';
 			$article['keywords'] = !empty($tags['keywords']) ? htmlspecialchars_decode($tags['keywords']) : '';
+			$article['draft'] = !empty($tags['draft']) && $tags['draft'] == 'yes' ? true : false;
 			$article['twitter'] = !empty($tags['twitter']) ? htmlspecialchars_decode($tags['twitter']) : '';
 			$article['gravatar'] = !empty($tags['gravatar']) ? $tags['gravatar'] : '';
 		}
@@ -155,6 +160,7 @@
 			$article['profile'] = '';
 			$article['created'] = date('Y-m-d', time());
 			$article['description'] = '';
+			$article['draft'] = true;
 			$article['keywords'] = '';
 			$article['twitter'] = '';
 			$article['gravatar'] = '';
@@ -164,6 +170,7 @@
 		if(empty($article['author'])) $article['author'] = $config['author'];
 		if(empty($article['profile'])) $article['profile'] = $config['profile'];
 		if(empty($article['twitter'])) $article['twitter'] = $config['twitter'];
+		if(empty($article['draft'])) $article['draft'] = false;
 		
 		return $article;
 	}

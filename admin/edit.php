@@ -18,13 +18,15 @@
 	}
 
 	// Add the meta part to the html header
-	function add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter) {
+	function add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $draft) {
 		if ($author)
 			$html .= '<meta name="author" content="' . $author . '">' . "\n";
 		$html .= '<meta name="created" content="' . $created . '">' . "\n";
 		$html .= '<meta name="description" content="' . $description . '">' . "\n";
 		$html .= '<meta name="keywords" content="' . $keywords . '">' . "\n";
 		$html .= '<meta name="generator" content="blogless">' . "\n";
+		if ($draft)
+			$html .= '<meta name="draft" content="yes">' . "\n";
 		$html .= '<meta name="gravatar" content="http://www.gravatar.com/avatar/' . md5($email) . '">' . "\n";
 		$html .= '<meta property="og:type" content="article">' . "\n";
 		$html .= '<meta property="og:title" content="' . $title . '">' . "\n";
@@ -156,6 +158,8 @@
 				if ($name == '040')
 					continue;
 				$article = get_article($name);
+				if ($article['draft'])
+					continue;
 				$html .= '<li>';
 				$html .= htmlspecialchars($article['created']);
 				$html .= ' &#8212; ';
@@ -245,6 +249,8 @@
 		$html .= '<p><label for="author">Author:</label><input type="text" id="author" name="author" placeholder="Author Name" value="' . htmlspecialchars($article['author']) . '"></p>' . "\n";
 		$html .= '<p><label for="description">Description:</label><input type="text" id="description" name="description" placeholder="Description"  value="' . htmlspecialchars($article['description']) . '" required></p>' . "\n";
 		$html .= '<p><label for="language">Language Code</label><input type="text" id="language" name="language"  placeholder="Language, like en, de ir fr" value="' . htmlspecialchars($article['language']) . '" maxlength="2" required></p>' . "\n";
+		$flag = $article['draft'] == true ? 'checked' : '';
+		$html .= '<p><label for="draft">Draft: </label><input type="checkbox" id="draft" title="Article will be excluded from rss, sitemap and article list!" name="draft" ' . $flag . '>' . "</p>\n";
 		$html .= "<details> \n";
 		$html .= "<summary><b>Optional Article Settings</b></summary> \n";
 		if ($name == 'index')
@@ -298,6 +304,7 @@
 		$description = !empty($_POST['description']) ? htmlspecialchars($_POST['description']) : 'For ' . $_POST['title'] . 'no description has been written yet';
 		$keywords = !empty($_POST['keywords']) ? htmlspecialchars($_POST['keywords']) : false;
 		$content = !empty($_POST['content']) ? $_POST['content'] : false;
+		$draft = !empty($_POST['draft']) ? true : false;
 
 		$gravatar = $email ? 'http://www.gravatar.com/avatar/' . md5($email) : false;
 		$image = find_image($config, $dirname, $email);
@@ -308,7 +315,7 @@
 		$html .= '<title>' . $title . '</title>' . "\n";
 		$html .= "<meta charset=UTF-8> \n";
 		$html .= '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">' . "\n";
-		$html .= add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter);
+		$html .= add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $draft);
 		$html .= add_link ($config, $profile, $dirname, $language);
 		$html .= '</head>' . "\n";
 		$html .= "\n";
