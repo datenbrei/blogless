@@ -14,7 +14,7 @@ body hr { color:#F80; background-color:#F80; border:#F80; height:1px; }
 article { line-height:160%; }
 article h2,h3,h4,h5,h6 { margin: 1em 0px; color:#F80; font-weight:bold; font-size:large; margin-top:1.5em; margin-bottom:0.5em; }
 article hr { color:#F80; background-color:#F80; border:#F80; height:1px; }
-article p { margin-bottom:0.5em; }
+article p { margin-bottom:1em; }
 article a { color:#F80; text-decoration:none; }
 article b { font-weight:bold; }
 article dfn,cite,em,i { font-style:italic; }
@@ -31,6 +31,7 @@ aside a {color:#F80; text-decoration:none; }
 aside ul { margin: 0 1em; list-style:none; }
 aside ul p { color:#BBB; }
 article header { display:block; color:#BBB; font-size:small; font-weight:bold; text-align:center; margin: 0 auto 3em auto; }
+article header #sitename { display:none; }
 article header h1 { margin: 1em 0 0.5em 0; color:#F80; font-weight:bold; font-size:xx-large; line-height:120%; text-align:center; }
 article header address { display:inline; }
 header time { display:inline; }

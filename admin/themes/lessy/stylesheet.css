@@ -27,6 +27,7 @@ article blockquote { margin: 2em auto; padding: 0.5em 10px; font-style:italic; t
 article blockquote:before { font-size: 3em; line-height: 0.1em; content: '„' ' '; color: #787878; font-family: Georgia, serif; }
 article blockquote:after { font-size: 3em; line-height: 0.1em; content: ' ' ' “ '; color: #787878; font-family: Georgia, serif; vertical-align: -0.4em;}
 article header {  display:flex; align-content:center; margin: 1em auto 2em auto; }
+article header #sitename { display:none; }
 article header h1 { color:#404040; font-weight:bold; font-size:250%; line-height:64px; font-family: Arvo,Georgia,serif;}
 article header div { flex:1; color:#404040; font-size:medium; color: #787878;  font-weight:bold;}
 article header address { display:inline;}
