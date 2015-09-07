@@ -140,7 +140,7 @@
 			$article['title'] = !empty($matches[1]) ? htmlspecialchars_decode($matches[1]) : '';
 			preg_match('#<link rel="author" href="(.*)">#u', $original, $matches); 
 			$article['profile'] = !empty($matches[1]) ? $matches[1] : '';
-			preg_match('#<div .* itemprop="articleBody">(.*)</div>#Ums', $original, $matches); 
+			preg_match('#<div .* itemprop="articleBody">(.*)</div>#ms', $original, $matches); 
 			$article['content'] = !empty($matches[1]) ? $matches[1] : '';
 
 			$tags = get_meta_tags($path);
