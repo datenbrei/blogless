@@ -8,7 +8,6 @@
 
 	session_start();
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
-		setcookie('blogless', '', time() -3600); 
 		session_destroy();
 		header('Location: login.php');
 

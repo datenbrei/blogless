@@ -14,13 +14,7 @@
 		
 	
 	require('include.php');
-
-	// Check Login
-	session_start();
-	if (empty($_COOKIE['blogless']) or empty($_SESSION['login']) or $_COOKIE['blogless'] != $_SESSION['login']) {
-		header('Location: login.php');
-		die("Access denied");
-	}
+	require('auth.php');
 	
 	// locale and our own path
 	define ('MYPATH', ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] );

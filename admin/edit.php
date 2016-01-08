@@ -9,14 +9,8 @@
 	require('include.php');
 	require_once('config.php');
 	require('ping.php');
-	
-	// Check Login
-	session_start();
-	if (empty($_COOKIE['blogless']) or empty($_SESSION['login']) or $_COOKIE['blogless'] != $_SESSION['login']) {
-		header('Location: login.php');
-		die("Access denied");
-	}
-
+	require('auth.php');
+		
 	// Add the meta part to the html header
 	function add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $draft) {
 		if ($author)

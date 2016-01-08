@@ -6,13 +6,6 @@
 	License: http://blogless.datenbrei.de/license.html
 */
 
-	// Check Login like this:
-	// session_start();
-	// if (empty($_COOKIE['blogless']) or empty($_SESSION['login']) or $_COOKIE['blogless'] != $SESSION['login']) {
-	// 	header('Location: login.php');
-	// 	die("Access denied");
-	//}
-
 	// Is there yet a password set? If yes, get it.
 	session_start();
 	if (is_readable('password.php'))
@@ -59,9 +52,10 @@
 	elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$pw = filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING,FILTER_FLAG_STRIP_LOW);
 		$user = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
+
 		// initial login, set username and password
-		$crypted = password_hash($pw, PASSWORD_BCRYPT);
 		if (!$password) {
+			$crypted = password_hash($pw, PASSWORD_BCRYPT);
 			$file = '<?php' . "\n";
 			$file .= '$username = ' . "'" . $user . "';\n";
 			$file .= '$password = ' . "'" . $crypted . "';\n";
@@ -69,19 +63,16 @@
 			file_put_contents('password.php', $file);
 
 			// Login
-			setcookie('blogless', $crypted, time() + 2*24*3600); // two days
 			$_SESSION['login'] = $crypted;
 			header('Location: index.php');
 		}			
 		else {
 			// Login successful
 			if ($user == $username && password_verify($pw, $password)) {
-				setcookie('blogless', $crypted, time() + 2*24*3600); // two days
-				$_SESSION['login'] = $crypted;
+				$_SESSION['login'] = $password;
 				header('Location: index.php');
 			}
 			else {
-				setcookie('blogless', '', time() -3600); 
 				session_destroy();
 				header('Location: login.php');
 			}

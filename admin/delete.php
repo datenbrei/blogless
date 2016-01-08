@@ -7,13 +7,7 @@
 */
 
 	require('include.php');
-
-	// Check Login
-	session_start();
-	if (empty($_COOKIE['blogless']) or empty($_SESSION['login']) or $_COOKIE['blogless'] != $_SESSION['login']) {
-		header('Location: login.php');
-		die("Access denied");
-	}
+	require('auth.php');
 	
 	function rrmdir($dir) { 
 		foreach(glob($dir . '/*') as $file) { 
