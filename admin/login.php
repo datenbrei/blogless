@@ -13,6 +13,10 @@
 	else
 		$password = false;
 
+	define('PWD_MESSAGE', 			'Login with Username and Password');
+	define('PWD_SET',				'Initially set Username and global Password');
+	define('PWD_ERROR',				'Wrong Username or Password - try again!');
+
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		$html = "<html> \n";
 		$html .= "<head> \n";
@@ -20,31 +24,44 @@
 		$html .= "<meta charset=UTF-8> \n";
 		$html .= '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">' . "\n";
 		$html .= '<link rel="stylesheet" href="admin.css" type="text/css" media="all">' . "\n";
-		$html .= "</head> \n";
-		$html .= "<body> \n";
-		$html .= '<header>' . "\n";
-		$html .= '<h1>Security</h1>' . "\n";
-		$html .= '</header>' . "\n";
+		$html .= '</head>' . "\n";
+		$html .= '<body>' . "\n";
+		$html .= '<main>' . "\n";
+		$html .= '<article>' . "\n";
 
 		if ($password) {
-			$html .= "<h2>Login</h2> \n";
+			$error = (filter_input(INPUT_GET, "error", FILTER_VALIDATE_INT)) ? true : false;
+
+			$html .= '<header>' . "\n";
+			$html .= '<h1>Login</h1>' . "\n";
+			$html .= '</header>' . "\n";
+			$html .= ($error) ? '<p>' . PWD_ERROR . '</p>' . "\n" : '<p>' . PWD_MESSAGE . '</p>' . "\n";
+			$html .= '<br>' . "\n";
 			$html .= '<form method="post" action="login.php" autocomplete="off">';
 			$html .= '<p><input type="text" name="username" autofocus placeholder="Your Username"></p>' . "\n";
 			$html .= '<p><input type="password" name="password" placeholder="Type your Password"></p>';
+			$html .= '<br>' . "\n";
 			$html .= '<p><input id="save" type="submit" value="Login">';
 			$html .= '</form>';
 		}
 		else {
-			$html .= "<h2>Set initial Password</h2> \n";
+			$html .= '<header>' . "\n";
+			$html .= '<h1>Set Password</h1>' . "\n";
+			$html .= '</header>' . "\n";
+			$html .= '<p>' . PWD_SET . '</p>' . "\n";
+			$html .= '<br>' . "\n";
 			$html .= '<form method="post" action="login.php" autocomplete="off">' . "\n";
 			$html .= '<p><input type="text" name="username" autofocus placeholder="Choose a Username"></p>' . "\n";
 			$html .= '<p><input type="password" name="password" placeholder="Set initial Password - Minimum 8 Characters"></p>' . "\n";
-			$html .= '<p><input id="login" type="submit" value="Initial Login">';
+			$html .= '<br>' . "\n";
+			$html .= '<p><input id="save" type="submit" value="Initial Login">';
 			$html .= '</form>' . "\n";
 		}
 
-		$html .= "<body>";
-		$html .= "</html>";
+		$html .= '</article>' . "\n";
+		$html .= '</main>' . "\n";
+		$html .= '</body>';
+		$html .= '</html>';
 		header('Content-type: text/html; charset=utf-8');
 		header('Cache-Control: no-cache, must-revalidate');
 		die($html);
@@ -74,7 +91,8 @@
 			}
 			else {
 				session_destroy();
-				header('Location: login.php');
+				header("HTTP/1.0 401 Unauthorized");
+				header('Location: login.php?error=401');
 			}
 		}
 	}
