@@ -98,7 +98,7 @@
 	// Add the article header with title, author, pubishing date, ...
 	function add_header($config, $title, $author, $profile, $created, $gravatar) {
 		$html .= '<header>' . "\n";
-		$html .= '<a id="sitename" role="banner" href="' . $config['baseurl'] . '">' . $config['sitename'] . '</a>' . "\n";
+		$html .= '<a id="sitename" href="' . $config['baseurl'] . '">' . $config['sitename'] . '</a>' . "\n";
 		$html .= '<div>' . "\n";
 		$html .= '<h1 itemprop="headline">' . $title . '</h1>' . "\n";
 
@@ -315,7 +315,7 @@
 		$html .= '</article>' . "\n";
 		$html .= add_article_list($config, $dirname);
 		$html .= '<hr>' . "\n";
-		$html .= '<footer role="contentinfo" ><a href="' . $config['baseurl'] . '">' . $config['sitename'] . '</a></footer>' . "\n";
+		$html .= '<footer><a href="' . $config['baseurl'] . '">' . $config['sitename'] . '</a></footer>' . "\n";
 		$html .= '</body>' . "\n";
 		$html .= '</html>' . "\n";
 		//file_put_contents('output.txt', $html);
