@@ -23,14 +23,14 @@
 		$html = "<!DOCTYPE html> \n";
 		$html .= "<html> \n";
 		$html .= "<head> \n";
-		$html .= "<title>List of Pages</title> \n";
+		$html .= "<title>Index of Articles</title> \n";
 		$html .= "<meta charset=UTF-8> \n";
 		$html .= '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">' . "\n";
 		$html .= '<link rel="stylesheet" href="admin.css" type="text/css" media="all">' . "\n";
 		$html .= "</head> \n";
 		$html .= "<body> \n";
 		$html .= "<main> \n";
-		$html .= "<h1>Index of Files</h1> \n";
+		$html .= "<h1>Index of Articles</h1> \n";
 		$html .= '<br>' . "\n";
 		
 		$article = get_article(null);
