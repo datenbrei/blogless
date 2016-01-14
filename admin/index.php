@@ -17,7 +17,7 @@
 	require('auth.php');
 	
 	// locale and our own path
-	define ('MYPATH', ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] );
+	//define ('MYPATH', ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] );
 
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		$html = "<!DOCTYPE html> \n";
@@ -33,6 +33,16 @@
 		$html .= "<h1>Index of Files</h1> \n";
 		$html .= '<br>' . "\n";
 		
+		$article = get_article(null);
+		$html .= '<a class="page" href="/index.html" title="View" target="_blank">🔎 </a>' . "\n";
+		$html .= '<a class="page" href="edit.php" title="Edit">🔧</a>';
+		$html .= ' &#8212; ';
+		$html .= 'Index' . "\n";
+		$html .= ' &#8212; ';
+		$html .= $article['title'] . "\n";
+		$html .= '<br />' . "\n";
+		$html .= '<br />' . "\n";
+
 		$files = get_article_list();
 		foreach ($files as $name) {
 			$article = get_article($name);
@@ -48,9 +58,7 @@
 
 		$html .= "</main> \n";
 		$html .= '<nav id="botnav">';
-		$html .= '<a class="menu" id="view" href="../">View Site</a>';
-		$html .= '<a class="menu" id="new" href="edit.php">New Article</a>';
-		$html .= '<a class="menu" id="index" href="edit.php?article=index">Edit Index</a>';
+		$html .= '<a class="menu" id="new" href="edit.php?article=' . date('Y-m-d', time()) . '">New Article</a>';
 		$html .= '<a class="menu" id="settings" href="settings.php">Settings</a>';
 		$html .= '<a class="menu" id="logout" href="logout.php">Logout</a>';
 		$html .= '</nav>' . "\n";

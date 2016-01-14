@@ -24,6 +24,11 @@
 			unlink('../' . $article . '/' . $file);
 			header('Location: edit.php?article=' . urlencode($article));
 		}
+		elseif ($file && $file != 'index.html') {
+			unlink('../' . $file);
+			header('Location: edit.php');
+		}
+
 		elseif ($article) {
 			rrmdir('../' . urldecode($article));
 			header('Location: index.php');

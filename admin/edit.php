@@ -173,8 +173,12 @@
 		$html = '<ul class="articlelist">' . "\n";
 		$files = get_file_list($path);
 		foreach ($files as $file) {
-			if ($file != 'index.html' && $file != 'feed.xml' && $file != 'sitemap.xml' && $file != 'style.css' )
-				$html .= '<li><a class="page" href="delete.php?article=' . urlencode($article) . '&file=' . urlencode($file) . '" title="Delete">✖ </a>' . $file . "</li>\n";
+			if ($file != 'index.html' && $file != 'feed.xml' && $file != 'sitemap.xml' && $file != 'style.css' ) {
+				if ($article)
+					$html .= '<li><a class="page" href="delete.php?article=' . urlencode($article) . '&file=' . urlencode($file) . '" title="Delete">✖ </a>' . $file . "</li>\n";
+				else
+					$html .= '<li><a class="page" href="delete.php?file=' . urlencode($file) . '" title="Delete">✖ </a>' . $file . "</li>\n";
+			}
 		}
 		$html .= '</ul>' . "\n";
 		return $html;
@@ -182,15 +186,12 @@
 	
 	// Write article to disk, ping remote hosts and update sitemap and rss
 	function save_article ($config, $dirname, $created, $html) {
-		if (!$dirname) {
-			file_put_contents('../index.html', $html);
-		}
-		else {
+		if ($dirname)
 			@mkdir ('../' . $dirname);
-			file_put_contents('../' . $dirname . 'index.html', $html);
-			@touch('../' . $dirname, strtotime($created));
-			touch('../' . $dirname . 'index.html', strtotime($created));
-		}
+		file_put_contents('../' . $dirname . 'index.html', $html);
+		@touch('../' . $dirname, strtotime($created));
+		touch('../' . $dirname . 'index.html', strtotime($created));
+
 		if ($config['sitemap'] == 'yes')
 			update_sitemap();
 		else
@@ -208,14 +209,8 @@
 	// Process GET and POST requests
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		$name = (isset($_GET['article'])) ? $_GET['article'] : NULL; 
-		if ($name) {
-			$article = get_article($name);
-		}
-		else {
-			$name = date('Y-m-d', time());
-			$article = get_article($name);
-		}
-		
+		$article = get_article($name);
+
 		$html = "<!DOCTYPE html> \n";
 		$html .= "<html> \n";
 		$html .= "<head> \n";
@@ -247,10 +242,10 @@
 		$html .= '<p><label for="draft">Draft: </label><input type="checkbox" id="draft" title="Article will be excluded from rss, sitemap and article list!" name="draft" ' . $flag . '>' . "</p>\n";
 		$html .= "<details> \n";
 		$html .= "<summary><b>Optional Article Settings</b></summary> \n";
-		if ($name == 'index')
-			$html .= '<p>index.html</p>' . "\n";
-		else
+		if ($name)
 			$html .= '<p><label for="name">Change Filename:</label><input type="text" id="name" name="name" placeholder="Filename" value="' . htmlspecialchars($name) . '" required></p>' . "\n";
+		else
+			$html .= '<p>index.html</p>' . "\n";
 		$html .= '<p><label for="created">Date Created:</label><input type="date" id="created" name="created" pattern="\d{4}-\d{2}-\d{2}" placeholder="Publishing Date in ISO-Format YYYY-MM-DD" value="' . htmlspecialchars($article['created']) . '" required ></p>' . "\n";
 		$html .= '<p><label for="email">Author\'s Email: </label><input type="text" name="email" placeholder="Author\'s Email (will not be shown in the Public)" value="' . htmlspecialchars($config['email']) . '" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></p>' . "\n";
 		$html .= '<p><label for="profile">Author\'s Profile:</label><input type="url" id="profile" name="profile" placeholder="Author\'s Web Profile (optional)" value="' . htmlspecialchars($article['profile']) . '"></p>' . "\n";
@@ -261,16 +256,16 @@
 		$html .= '<p><input id="save" type="submit" value="Save">';
 		$html .= "</form> \n";
 		
-		if ($name == 'index')
-			$dir = '../';
-		else
+		if ($name)
 			$dir = '../' . $name . '/';
+		else
+			$dir = '../';
 
 		if (is_dir($dir)) {
 			$html .= "<hr> \n";
 			$html .= '<form enctype="multipart/form-data" action="upload.php" method="POST">' . "\n";
 			//$html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000" />' . "\n";
-			if ($name != 'index')
+			if ($name)
 				$html .= '<input type="hidden" id="name" name="name" value="' . $name . '">' . "\n";
 			$html .= '<p><label for="upload">Attached Files:</label><input id="upload" name="upload" type="file" /></p>' . "\n";
 			$html .= '<input id="save" type="submit" value="Upload" />' . "\n";

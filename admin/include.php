@@ -34,9 +34,10 @@
 			$xml .= '<lastmod>' . $article['created'] . "</lastmod>\n";
 			$xml .= "</url>\n";
 		}
-		$article = get_article('index');
+		$article = get_article(null);
 		$xml .= "<url>\n";
 		$xml .= '<loc>' . $config['baseurl'] . "index.html</loc>\n";
+		$xml .= '<xhtml:link rel="alternate" hreflang="' . $article['language'] . '" href="' . $config['baseurl'] . '/index.html" />' . "\n";
 		$xml .= '<lastmod>' . $article['created'] . "</lastmod>\n";
 		$xml .= "</url>\n";
 		$xml .= "</urlset>\n";
@@ -126,10 +127,10 @@
 		global $config;
 		
 		$article = [];
-		if ($name == 'index')
-			$path = '../index.html';
-		else
+		if ($name)
 			$path = '../' . $name . '/index.html';
+		else
+			$path = '../index.html';
 		
 		if (is_readable($path)) {
 			$original = file_get_contents($path);
@@ -154,7 +155,7 @@
 		}
 		else {
 			$article['language'] = '';
-			$article['title'] = '';
+			$article['title'] = date('Y-m-d', time());
 			$article['content'] = '';
 			$article['author'] = '';
 			$article['profile'] = '';
