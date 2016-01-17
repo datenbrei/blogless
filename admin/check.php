@@ -9,17 +9,18 @@
 	$ok = true;
 
 	function check_version() {
-		if (version_compare(PHP_VERSION, '5.5.0') >= 0) {
-			$html = '<p style="color:green;">☑  — Your PHP version ' . PHP_VERSION . ' is ok for Blogless!</p>' . "\n";
+		$version = current(explode("-", PHP_VERSION));
+		if (version_compare($version, '5.5.0') >= 0) {
+			$html = '<p style="color:green;">☑  — Your PHP version ' . $version . ' is ok!</p>' . "\n";
 			$ok = false;
 		}
 		else {
-			$html = '<p style="color:red;">☒  — You have PHP version ' . PHP_VERSION . ', which is not sufficient. You need at least version 5.5 because of support for "password_verify"!</p>' . "\n";
+			$html = '<p style="color:red;">☒  — You have PHP version ' . $version . ', which is not sufficient. You need at least version 5.5 because of support for "password_verify"!</p>' . "\n";
 		}
 
 		return $html;
 		}
-	
+		
 	function check_file($filename) {
 		global $ok;
 		if (file_exists($filename)) {
@@ -88,6 +89,32 @@
 		return $html;
 	}
 
+	function check_encoding() {
+		global $ok;
+		if (mb_internal_encoding() == 'UTF-8') { 
+			$html = '<p style="color:green;">☑  — The internal character encoding of your PHP installation is "UTF-8".</p>' . "\n";
+		}
+		else {
+			$ok = false;
+			$html = '<p style="color:red;">☒  — Your PHP installation is not configured to handle UTF-8 encoding correctly! This will not work!</p>' . "\n";
+
+			if (ini_get('default_charset') != '') {
+				$html .= '<p style="color:black;">ℹ️  — The "default_charset" parameter in your php.ini is actually set to "' . ini_get('default_charset') . '".</p>' . "\n";
+			}
+		}
+		$webserver = php_sapi_name();
+		if ($webserver == 'apache2handler') {
+			$html .= '<p style="color:gray;">☐ — Optional: Your webserver is Apache, check your httpd.conf, if AddDefaultCharset is set to "UTF-8".</p>' . "\n";
+		}
+		elseif ($webserver == 'cli-server') {
+			$html .= '<p style="color:green;">☑ — You are running PHP\'s internal webserver, so no webserver encoding adjustments are needed.</p>' . "\n";
+		}
+		else {
+			$html .= '<p style="color:gray;">☐ — Optional: Your webserver is reported as ' . $webserver . '. See, if it is configured to handle UTF-8 encoding.</p>' . "\n";
+		}
+		return $html;
+	}
+
 
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		
@@ -106,6 +133,7 @@
 		$html .= '<h2>Check PHP Setup</h2>' . "\n";
 		$html .= check_version();
 		$html .= check_sessions();
+		$html .= check_encoding('check.php');
 		$html .= '<h2>Check Directory Permissions</h2>' . "\n";
 		$html .= check_dir('Admin', '.');
 		$html .= check_dir('Themes', 'themes/');
