@@ -1,0 +1,62 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+
+/* css reset */
+html, body, main, header, nav, section, address, footer, div, span, h1, h2, p, blockquote, pre, img, a, form, time, textarea, input, b, u, i, center, dl, dt, dd, ol, ul, li {
+margin:0;
+padding:0;
+border:0;
+font-size:medium;
+font:inherit;
+vertical-align:baseline;
+box-sizing: border-box; 
+}
+
+html {
+background-color:#FAFAFA;
+font-family:'Lato',sans-serif;
+height:100%;
+}
+
+body {
+max-width:200mm;
+margin:40px auto;
+padding:1em;
+background-color:#FFF;
+border-radius: 5px;
+text-align: center;
+}
+
+header {
+display:block;
+margin-bottom:1em;
+}
+
+h1 {
+color:#F80;
+font-size:xx-large;
+font-weight:bold;
+line-height:120%;
+}
+
+p {
+margin-bottom:0.5em;
+}
+
+input {
+display:block;
+width:16em;
+border-radius:5px;
+border:1px solid #bbb;
+background-color:#FAFAFA;
+margin:0px auto;
+padding:2px 4px;
+}
+
+input[type="submit"] {
+color:#FFF;
+background:#999;
+text-decoration:none;
+font-weight:bold;
+width:8em;
+margin:0px auto;
+}

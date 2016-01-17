@@ -23,7 +23,7 @@
 		$html .= "<title>Login</title> \n";
 		$html .= "<meta charset=UTF-8> \n";
 		$html .= '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">' . "\n";
-		$html .= '<link rel="stylesheet" href="admin.css" type="text/css" media="all">' . "\n";
+		$html .= '<link rel="stylesheet" href="login.css" type="text/css" media="all">' . "\n";
 		$html .= '</head>' . "\n";
 		$html .= '<body>' . "\n";
 		$html .= '<main>' . "\n";
