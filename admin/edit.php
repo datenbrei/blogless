@@ -12,7 +12,9 @@
 	require('auth.php');
 		
 	// Add the meta part to the html header
-	function add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $draft) {
+	function add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $facebook, $draft) {
+
+		// meta names
 		if ($author)
 			$html .= '<meta name="author" content="' . $author . '">' . "\n";
 		$html .= '<meta name="created" content="' . $created . '">' . "\n";
@@ -21,14 +23,8 @@
 		$html .= '<meta name="generator" content="blogless">' . "\n";
 		if ($draft)
 			$html .= '<meta name="draft" content="yes">' . "\n";
-		$html .= '<meta name="gravatar" content="http://www.gravatar.com/avatar/' . md5($email) . '">' . "\n";
-		$html .= '<meta property="og:type" content="article">' . "\n";
-		$html .= '<meta property="og:title" content="' . $title . '">' . "\n";
-		$html .= '<meta property="og:url" content="' . $config['baseurl'] . $dirname . '">' . "\n";
-		$html .= '<meta property="og:description" content="' . $description . '">' . "\n";
-		$html .= '<meta property="og:site_name" content="' . htmlspecialchars($config['sitename']) . '">' . "\n";
-		if ($image) 
-			$html .= '<meta property="og:image" content="' . $image . '">' . "\n";
+		if ($email)
+			$html .= '<meta name="gravatar" content="http://www.gravatar.com/avatar/' . md5($email) . '">' . "\n";
 
 		if ($twitter) { 
 			$html .= '<meta name="twitter:card" content="summary" >' . "\n";
@@ -38,6 +34,19 @@
 			$html .= '<meta name="twitter:url"  content="' . $config['baseurl'] . $dirname . '">' . "\n";
 			if ($image)
 				$html .= '<meta name="twitter:image" content="' . $image . '" >' . "\n";
+		}		
+
+		// meta properties
+		$html .= '<meta property="og:type" content="article">' . "\n";
+		$html .= '<meta property="og:title" content="' . $title . '">' . "\n";
+		$html .= '<meta property="og:url" content="' . $config['baseurl'] . $dirname . '">' . "\n";
+		$html .= '<meta property="og:description" content="' . $description . '">' . "\n";
+		$html .= '<meta property="og:site_name" content="' . htmlspecialchars($config['sitename']) . '">' . "\n";
+		if ($image) 
+			$html .= '<meta property="og:image" content="' . $image . '">' . "\n";
+
+		if ($facebook) { 
+			$html .= '<meta property="article:author" content="' . $facebook . '" >' . "\n";
 		}		
 
 		return $html;
@@ -251,6 +260,7 @@
 		$html .= '<p><label for="profile">Author\'s Profile:</label><input type="url" id="profile" name="profile" placeholder="Author\'s Web Profile (optional)" value="' . htmlspecialchars($article['profile']) . '"></p>' . "\n";
 		$html .= '<p><label for="keywords">Keywords:</label><input type="text" id="keywords" name="keywords"  placeholder="Keywords (optional)" value="' . htmlspecialchars($article['keywords']) . '" ></p>' . "\n";
 		$html .= '<p><label for="twitter">Twitter: </label><input type="text" id="twitter" name="twitter" pattern="^@[A-Za-z0-9_]{1,15}$" placeholder="Your Twitter ID" value="' . htmlspecialchars($article['twitter']) . '" /></p>' . "\n";
+		$html .= '<p><label for="facebook">Facebook: </label><input type="text" id="facebook" name="facebook" placeholder="Your Facebook profile URL" value="' . htmlspecialchars($article['facebook']) . '" /></p>' . "\n";
 		$html .= "</details> \n";
 		
 		$html .= '<p><input id="save" type="submit" value="Save">';
@@ -289,6 +299,7 @@
 		$email = !empty($_POST['email']) ? $_POST['email'] : false;
 		$profile = !empty($_POST['profile']) ? $_POST['profile'] : false;
 		$twitter = !empty($_POST['twitter']) ? $_POST['twitter'] : false;
+		$facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : false;
 		$created = !empty($_POST['created']) ? $_POST['created'] : date('Y-m-d', time());
 		$description = !empty($_POST['description']) ? htmlspecialchars($_POST['description']) : 'For ' . $_POST['title'] . 'no description has been written yet';
 		$keywords = !empty($_POST['keywords']) ? htmlspecialchars($_POST['keywords']) : false;
@@ -304,7 +315,7 @@
 		$html .= '<title>' . $title . '</title>' . "\n";
 		$html .= "<meta charset=UTF-8> \n";
 		$html .= '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">' . "\n";
-		$html .= add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $draft);
+		$html .= add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $facebook, $draft);
 		$html .= add_link ($config, $profile, $dirname, $language);
 		$html .= '</head>' . "\n";
 		$html .= "\n";

@@ -47,6 +47,8 @@
 		$html .= '<p><label for="email">Author\'s Email: </label><input type="text" name="email" placeholder="Author\'s Email (will not be shown in the Public)" value="' . $config['email'] . '" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></p>' . "\n";
 		$html .= '<p><label for="profile">Author\'s Profile: </label><input type="url" name="profile" placeholder="Author\'s Web Profile" value="' . $config['profile'] . '"></p>' . "\n";
 		$html .= '<p><label for="twitter">Twitter: </label><input type="text" id="twitter" name="twitter" pattern="^@[A-Za-z0-9_]{1,15}$" placeholder="Your Twitter ID" value="' . $config['twitter'] . '" /></p>' . "\n";
+		$html .= '<p><label for="facebook">Facebook: </label><input type="text" id="facebook" name="facebook" placeholder="Your Facebook profile URL" value="' . $config['facebook'] . '" /></p>' . "\n";
+
 		$html .= '<h2>Site Functionalities</h2>' . "\n";
 		$flag = $config['rss'] == 'yes' ? 'checked' : '';
 		$html .= '<p><label for="rss">RSS-Feed: </label><input type="checkbox" id="rss" name="rss" ' . $flag . '></p>' . "\n";
@@ -76,6 +78,7 @@
 		$email = !empty($_POST['email']) ? $_POST['email'] : '';
 		$profile = !empty($_POST['profile']) ? $_POST['profile'] : '';
 		$twitter = !empty($_POST['twitter']) ? $_POST['twitter'] : '';
+		$facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : '';
 		$rss = !empty($_POST['rss']) ? 'yes' : 'no';
 		$sitemap = !empty($_POST['sitemap']) ? 'yes' : 'no';
 		$articlelist = !empty($_POST['articlelist']) ? 'yes' : 'no';
@@ -97,6 +100,7 @@
 		$file .= '$config["email"] = ' . "'" . $email . "';\n";
 		$file .= '$config["profile"] = ' . "'" . $profile . "';\n";
 		$file .= '$config["twitter"] = ' . "'" . $twitter . "';\n";
+		$file .= '$config["facebook"] = ' . "'" . $facebook . "';\n";
 		$file .= '$config["rss"] = ' . "'" . $rss . "';\n";
 		$file .= '$config["sitemap"] = ' . "'" . $sitemap . "';\n";
 		$file .= '$config["articlelist"] = ' . "'" . $articlelist . "';\n";

@@ -151,6 +151,7 @@
 			$article['keywords'] = !empty($tags['keywords']) ? htmlspecialchars_decode($tags['keywords']) : '';
 			$article['draft'] = !empty($tags['draft']) && $tags['draft'] == 'yes' ? true : false;
 			$article['twitter'] = !empty($tags['twitter']) ? htmlspecialchars_decode($tags['twitter']) : '';
+			$article['facebook'] = !empty($tags['facebook']) ? htmlspecialchars_decode($tags['facebook']) : '';
 			$article['gravatar'] = !empty($tags['gravatar']) ? $tags['gravatar'] : '';
 		}
 		else {
@@ -164,6 +165,7 @@
 			$article['draft'] = true;
 			$article['keywords'] = '';
 			$article['twitter'] = '';
+			$article['facebook'] = '';
 			$article['gravatar'] = '';
 		}
 		
@@ -171,6 +173,7 @@
 		if(empty($article['author'])) $article['author'] = $config['author'];
 		if(empty($article['profile'])) $article['profile'] = $config['profile'];
 		if(empty($article['twitter'])) $article['twitter'] = $config['twitter'];
+		if(empty($article['facebook'])) $article['facebook'] = $config['facebook'];
 		if(empty($article['draft'])) $article['draft'] = false;
 		
 		return $article;
