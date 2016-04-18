@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
 	blogless - a blogless writing system
 	Author:  Martin Doering <martin@datenbrei.de>
