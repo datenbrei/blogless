@@ -1,0 +1,7 @@
+* {display:block;}
+:root {font-family: Arial, Helvetica, sans-serif;background-color:#FFF;}
+urlset:before {content: "Sitemap"; color:#F80; font-weight:bold; font-size:xx-large; line-height:120%; text-align:center; }
+urlset {height:100%;max-width:200mm; margin:0px auto; padding:30px 10px; min-height:100%;}
+url {}
+loc {display:inline;color:#F80;}
+lastmod, changefreq, priority {display:none;}

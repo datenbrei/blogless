@@ -22,6 +22,7 @@
 	function update_sitemap() {
 		global $config;
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+		$xml .= '<?xml-stylesheet type="text/css" href="admin/themes/' . $config['theme'] . '/sitemap.css"?>' . "\n";
 		$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
 		$files = get_article_list();
 		foreach ($files as $name) {
