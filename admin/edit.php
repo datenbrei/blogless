@@ -12,7 +12,7 @@
 	require('auth.php');
 		
 	// Add the meta part to the html header
-	function add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $facebook, $draft) {
+	function add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $facebook, $fbappid, $fbadmins, $draft) {
 
 		// meta names
 		if ($author)
@@ -47,6 +47,14 @@
 
 		if ($facebook) { 
 			$html .= '<meta property="article:author" content="' . $facebook . '" >' . "\n";
+		}		
+
+		if ($fbappid) { 
+			$html .= '<meta property="fb:app_id" content="' . $fbappid . '" >' . "\n";
+		}		
+
+		if ($fbadmins) { 
+			$html .= '<meta property="fb:admins" content="' . $fbadmins . '" >' . "\n";
 		}		
 
 		return $html;
@@ -306,6 +314,11 @@
 		$content = !empty($_POST['content']) ? $_POST['content'] : false;
 		$draft = !empty($_POST['draft']) ? true : false;
 
+		// just get fresh from config each time and don't store in article
+		$fbappid = !empty($config['fbappid']) ? $config['fbappid'] : false;
+		$fbadmins = !empty($config['fbadmins']) ? $config['fbadmins'] : false;
+		$footer = !empty($config['footer']) ? hex2bin($config['footer']) : false;
+
 		$gravatar = $email ? 'http://www.gravatar.com/avatar/' . md5($email) : false;
 		$image = find_image($config, $dirname, $email);
 
@@ -315,7 +328,7 @@
 		$html .= '<title>' . $title . '</title>' . "\n";
 		$html .= "<meta charset=UTF-8> \n";
 		$html .= '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">' . "\n";
-		$html .= add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $facebook, $draft);
+		$html .= add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $facebook, $fbappid, $fbadmins, $draft);
 		$html .= add_link ($config, $profile, $dirname, $language);
 		$html .= '</head>' . "\n";
 		$html .= "\n";
@@ -326,7 +339,11 @@
 		$html .= '</article>' . "\n";
 		$html .= add_article_list($config, $dirname);
 		$html .= '<hr>' . "\n";
-		$html .= '<footer><a href="' . $config['baseurl'] . '">' . $config['sitename'] . '</a></footer>' . "\n";
+		if ($footer)
+			$html .= '<footer>' . $footer . '</footer>' . "\n";
+		else
+			$html .= '<footer><a href="' . $config['baseurl'] . '">' . $config['sitename'] . '</a></footer>' . "\n";
+			
 		$html .= '</body>' . "\n";
 		$html .= '</html>' . "\n";
 		//file_put_contents('output.txt', $html);

@@ -41,6 +41,7 @@
 		$html .= '<p><label for="baseurl">Base URL:</label><input type="url" name="baseurl"  placeholder="The Base URL of your Domain" value="' . $config['baseurl'] . '"></p>' . "\n";
 		$html .= '<p><label for="locale">Locale Code: </label><input type="text" name="locale" placeholder="Locale Code (en_US,de_DE,...)" value="' . $config['locale'] . '" required ></p>' . "\n";
 		$html .= '<p><label for="dateformat">Date Format: </label><input type="text" name="dateformat" placeholder="e.g. for UK: %A, the %d%S of %B %Y (optional)" value="' . $config['dateformat'] . '" ></p>' . "\n";
+		$html .= '<p><label for="footer">Footer (HTML): </label><input type="text" name="footer" placeholder="HTML code for the footer at the bottom of each page" value="' . htmlspecialchars(hex2bin($config['footer'])) . '"></p>' . "\n";
 		$html .= '<p><label for="theme">Choose Theme: </label>' . theme_chooser() . '</p>';
 		$html .= '<h2>Article Defaults</h2>' . "\n";
 		$html .= '<p><label for="author">Author: </label><input type="text" name="author" placeholder="Author Name" value="' . $config['author'] . '" required ></p>' . "\n";
@@ -48,6 +49,8 @@
 		$html .= '<p><label for="profile">Author\'s Profile: </label><input type="url" name="profile" placeholder="Author\'s Web Profile" value="' . $config['profile'] . '"></p>' . "\n";
 		$html .= '<p><label for="twitter">Twitter: </label><input type="text" id="twitter" name="twitter" pattern="^@[A-Za-z0-9_]{1,15}$" placeholder="Your Twitter ID" value="' . $config['twitter'] . '" /></p>' . "\n";
 		$html .= '<p><label for="facebook">Facebook: </label><input type="text" id="facebook" name="facebook" placeholder="Your Facebook profile URL" value="' . $config['facebook'] . '" /></p>' . "\n";
+		$html .= '<p><label for="fbappid">Facebook App ID: </label><input type="text" id="fbappid" name="fbappid" placeholder="Your Facebook Application ID" value="' . $config['fbappid'] . '" /></p>' . "\n";
+		$html .= '<p><label for="fbadmins">Facebook Admins: </label><input type="text" id="fbadmins" name="fbadmins" placeholder="Your Facebook Admin ID" value="' . $config['fbadmins'] . '" /></p>' . "\n";
 
 		$html .= '<h2>Site Functionalities</h2>' . "\n";
 		$flag = $config['rss'] == 'yes' ? 'checked' : '';
@@ -79,10 +82,13 @@
 		$profile = !empty($_POST['profile']) ? $_POST['profile'] : '';
 		$twitter = !empty($_POST['twitter']) ? $_POST['twitter'] : '';
 		$facebook = !empty($_POST['facebook']) ? $_POST['facebook'] : '';
+		$fbappid = !empty($_POST['fbappid']) ? $_POST['fbappid'] : '';
+		$fbadmins = !empty($_POST['fbadmins']) ? $_POST['fbadmins'] : '';
 		$rss = !empty($_POST['rss']) ? 'yes' : 'no';
 		$sitemap = !empty($_POST['sitemap']) ? 'yes' : 'no';
 		$articlelist = !empty($_POST['articlelist']) ? 'yes' : 'no';
 		$pingback = !empty($_POST['pingback']) ? 'yes' : 'no';
+		$footer = !empty($_POST['footer']) ? $_POST['footer'] : '';
 		$theme = !empty($_POST['theme']) ? $_POST['theme'] : 'default';
 		
 		//Fix inconvenient input
@@ -101,10 +107,13 @@
 		$file .= '$config["profile"] = ' . "'" . $profile . "';\n";
 		$file .= '$config["twitter"] = ' . "'" . $twitter . "';\n";
 		$file .= '$config["facebook"] = ' . "'" . $facebook . "';\n";
+		$file .= '$config["fbappid"] = ' . "'" . $fbappid . "';\n";
+		$file .= '$config["fbadmins"] = ' . "'" . $fbadmins . "';\n";
 		$file .= '$config["rss"] = ' . "'" . $rss . "';\n";
 		$file .= '$config["sitemap"] = ' . "'" . $sitemap . "';\n";
 		$file .= '$config["articlelist"] = ' . "'" . $articlelist . "';\n";
 		$file .= '$config["pingback"] = ' . "'" . $pingback . "';\n";
+		$file .= '$config["footer"] = ' . "'" . bin2hex($footer) . "';\n";
 		$file .= '$config["theme"] = ' . "'" . $theme . "';\n";
 		$file .= '?>' . "\n";
 		file_put_contents('config.php', $file);

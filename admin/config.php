@@ -10,9 +10,12 @@ $config["email"] = 'martin@datenbrei.de';
 $config["profile"] = 'http://martin@datenbrei.de';
 $config["twitter"] = '@datenbrei';
 $config["facebook"] = 'https://www.facebook.com/datenbrei';
+$config["fbappid"] = '';
+$config["fbadmins"] = '';
 $config["rss"] = 'no';
 $config["sitemap"] = 'no';
 $config["articlelist"] = 'no';
 $config["pingback"] = 'no';
+$config["footer"] = '';
 $config["theme"] = 'default';
 ?>
