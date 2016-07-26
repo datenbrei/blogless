@@ -223,6 +223,16 @@
 		}
 	}
 
+	function remove_image_size($text) {
+		// replace images
+		$pattern = "#<img([^>]*) width=\"([^\"]*)\" height=\"([^\"]*)\"#";
+		$replace = "<img\${1}";
+		$text = preg_replace($pattern, $replace, $text);
+		
+		return $text;
+	}
+
+
 	// Process GET and POST requests
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		$name = (isset($_GET['article'])) ? $_GET['article'] : NULL; 
@@ -239,10 +249,13 @@
 		$html .= '<script type="text/javascript" src="tinymce/tinymce.min.js"></script>';
 		$html .= '<script type="text/javascript">';
         $html .= 'tinymce.init({';
-        $html .= 'selector: "#editor"';
-		$html .= ', plugins: "link image charmap hr fullscreen emoticons code paste", image_dimensions: false';
-		$html .= ', menubar: "false"';
-        $html .= ', toolbar: "formatselect | bold italic underline strikethrough blockquote removeformat | bullist numlist hr | link unlink image charmap emoticons code | fullscreen"';
+        $html .= 'selector: "#editor", ';
+		$html .= 'plugins: "link image charmap hr fullscreen emoticons code paste", ';
+		$html .= 'document_base_url: "' . $article['url'] . '", ';
+		$html .= 'image_dimensions: true, ';
+		$html .= 'object_resizing : false, ';
+		$html .= 'menubar: "false", ';
+        $html .= 'toolbar: "formatselect | bold italic underline strikethrough blockquote removeformat | bullist numlist hr | link unlink image charmap emoticons code | fullscreen"';
         $html .= '});';
 		$html .= '</script>';
 
@@ -259,8 +272,10 @@
 		$html .= '<p><label for="draft">Draft: </label><input type="checkbox" id="draft" title="Article will be excluded from rss, sitemap and article list!" name="draft" ' . $flag . '>' . "</p>\n";
 		$html .= "<details> \n";
 		$html .= "<summary><b>Optional Article Settings</b></summary> \n";
-		if ($name)
+		if ($name) {
 			$html .= '<p><label for="name">Change Filename:</label><input type="text" id="name" name="name" placeholder="Filename" value="' . htmlspecialchars($name) . '" required></p>' . "\n";
+			$html .= '<input type="hidden" name="origname" value="' . htmlspecialchars($name) . '">' . "\n";
+		}
 		else
 			$html .= '<p>index.html</p>' . "\n";
 		$html .= '<p><label for="created">Date Created:</label><input type="date" id="created" name="created" pattern="\d{4}-\d{2}-\d{2}" placeholder="Publishing Date in ISO-Format YYYY-MM-DD" value="' . htmlspecialchars($article['created']) . '" required ></p>' . "\n";
@@ -301,6 +316,11 @@
 		@setlocale(LC_ALL, $config['locale'] . '.UTF-8');
 
 		$dirname = !empty($_POST['name']) ? htmlspecialchars(strtolower($_POST['name'])) . '/' : false;
+		$origname = !empty($_POST['origname']) ? htmlspecialchars(strtolower($_POST['origname'])) . '/' : false;
+		// can't use empty article filename
+		if ($origname && !$dirname)
+			$dirname = $origname;
+
 		$language = !empty($_POST['language']) ? htmlspecialchars($_POST['language']) : 'en';
 		$title = !empty($_POST['title']) ? htmlspecialchars($_POST['title']) : 'untitled';
 		$author = !empty($_POST['author']) ? htmlspecialchars($_POST['author']) : false;
@@ -313,6 +333,10 @@
 		$keywords = !empty($_POST['keywords']) ? htmlspecialchars($_POST['keywords']) : false;
 		$content = !empty($_POST['content']) ? $_POST['content'] : false;
 		$draft = !empty($_POST['draft']) ? true : false;
+		
+		// remove image sizing from content
+		//<img src="gravatar.jpeg" alt="eee" width="232" height="232" />
+		$content = remove_image_size($content);
 
 		// just get fresh from config each time and don't store in article
 		$fbappid = !empty($config['fbappid']) ? $config['fbappid'] : false;
@@ -346,8 +370,11 @@
 			
 		$html .= '</body>' . "\n";
 		$html .= '</html>' . "\n";
-		//file_put_contents('output.txt', $html);
-	
+		
+		// rename article and move folder before updating content
+		if ($dirname && $origname && $origname != $dirname)
+			rename("../$origname", "../$dirname");
+		
 		save_article ($config, $dirname, $created, $html);
 		header('Location: index.php');
 	}
