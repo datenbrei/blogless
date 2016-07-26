@@ -19,6 +19,22 @@
 		return strftime($format, $timestamp);
 	}
 
+	function reltoabs($text, $base) {
+		// base url needs trailing /
+		if (substr($base, -1, 1) != "/")
+			$base .= "/";
+		// replace links
+		$pattern = "/<a([^>]*) href=\"([^http|ftp|https|mailto][^\"]*)\"/";
+		$replace = "<a\${1} href=\"" . $base . "\${2}\"";
+		$text = preg_replace($pattern, $replace, $text);
+		// replace images
+		$pattern = "/<img([^>]*) src=\"([^http|ftp|https][^\"]*)\"/";
+		$replace = "<img\${1} src=\"" . $base . "\${2}\"";
+		$text = preg_replace($pattern, $replace, $text);
+		
+		return $text;
+	}
+
 	function update_sitemap() {
 		global $config;
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -63,14 +79,12 @@
 			$article = get_article($filename);
 			if ($article['draft'])
 				continue;
-			$pagename = $article['title'];
-			$content = $article['content'];
 			$description = $article['description'];
 			$xml .= "<item>\n";
-			$xml .= "<title>" . htmlspecialchars($pagename) . "</title>\n";
+			$xml .= "<title>" . htmlspecialchars($article['title']) . "</title>\n";
 			$xml .= "<link>" . $config['baseurl'] . urlencode($filename) . "/index.html</link>\n";
 			$xml .= "<description>" . htmlspecialchars($description, ENT_COMPAT | ENT_XML1) . "</description>\n";
-			$xml .= "<content:encoded><![CDATA[" . $article['content'] . "]]></content:encoded>\n";
+			$xml .= "<content:encoded><![CDATA[" . reltoabs($article['content'], $article['url']) . "]]></content:encoded>\n";
 			//$xml .= "<guid>" . pageid($pagename) . "</guid>\n";
 			$xml .= "<pubDate>" . htmlspecialchars($article['created']) . "</pubDate>\n";
 			$xml .= "</item>\n";
@@ -128,10 +142,14 @@
 		global $config;
 		
 		$article = [];
-		if ($name)
+		if ($name) {
 			$path = '../' . $name . '/index.html';
-		else
+			$article['url'] = $config['baseurl'] . $name . '/';
+		}
+		else {
 			$path = '../index.html';
+			$article['url'] = $config['baseurl'];
+		}
 		
 		if (is_readable($path)) {
 			$original = file_get_contents($path);
