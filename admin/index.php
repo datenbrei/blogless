@@ -34,7 +34,7 @@
 		$html .= '<br>' . "\n";
 		
 		$article = get_article(null);
-		$html .= '<a class="page" href="/index.html" title="View" target="_blank">🔎 </a>' . "\n";
+		$html .= '<a class="page" href="../index.html" title="View" target="_blank">🔎 </a>' . "\n";
 		$html .= '<a class="page" href="edit.php" title="Edit">🔧</a>';
 		$html .= ' &#8212; ';
 		$html .= 'Index' . "\n";
@@ -46,7 +46,7 @@
 		$files = get_article_list();
 		foreach ($files as $name) {
 			$article = get_article($name);
-			$html .= '<a class="page" href="/' . urlencode($name) . '/index.html" title="View" target="_blank">🔎 </a>' . "\n";
+			$html .= '<a class="page" href="../' . urlencode($name) . '/index.html" title="View" target="_blank">🔎 </a>' . "\n";
 			$html .= '<a class="page" href="edit.php?article=' . urlencode($name) . '" title="Edit">🔧</a>';
 			$html .= ' &#8212; ';
 			$html .= '<a class="page" href="delete.php?article=' . urlencode($name) . '" title="Delete">✖ </a>';
