@@ -10,18 +10,26 @@
 <meta name="keywords" content="blogless, usage">
 <meta name="generator" content="blogless">
 <meta name="gravatar" content="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43">
+<meta name="twitter:card" content="summary" >
+<meta name="twitter:site" content="@datenbrei" >
+<meta name="twitter:title" content="Blogless - Just Writing" >
+<meta name="twitter:description" content="A short Introduction to Blogless" >
+<meta name="twitter:url"  content="http://localhost/">
+<meta name="twitter:image" content="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43.jpg?s=180" >
 <meta property="og:type" content="article">
 <meta property="og:title" content="Blogless - Just Writing">
 <meta property="og:url" content="http://localhost/">
 <meta property="og:description" content="A short Introduction to Blogless">
 <meta property="og:site_name" content="localhost">
 <meta property="og:image" content="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43.jpg?s=180">
+<meta property="article:author" content="https://www.facebook.com/datenbrei" >
 <link rel="author" href="http://martin.datenbrei.de">
 <link rel="stylesheet" href="admin/themes/default/stylesheet.css" type="text/css" media="all">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="alternate" href="http://localhost/" hreflang="en">
 <link rel="canonical" href="http://localhost/">
+<link rel="alternate" type="application/rss+xml" title="localhost:8080" href="/feed.xml">
 </head>
 
 <body>
@@ -32,9 +40,9 @@
 <h1 itemprop="headline">Blogless - Just Writing</h1>
 <address><a href="http://martin.datenbrei.de" itemprop="author" rel="author">Martin Döring</a></address> &#8212;
 <time itemprop="datePublished" datetime="2015-07-19">Sunday, the 19th of July 2015</time>
-<time itemprop="dateModified" datetime="2016-01-14"></time>
+<time itemprop="dateModified" datetime="2016-07-26"></time>
 </div>
-<a href="http://martin.datenbrei.de" itemprop="author" title="Author" rel="author"><img id="gravatar" itemprop="image" src="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43" title="Author" alt="Author"></a>
+<a href="http://martin.datenbrei.de" itemprop="author" rel="author"><img id="gravatar" itemprop="image" src="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43" title="Author" alt="Author"></a>
 </header>
 <div id="content" itemprop="articleBody">
 <div class="text">
@@ -43,18 +51,22 @@
 <h2>Using Blogless</h2>
 <p>Go into your webbrowser and call</p>
 <pre>http://your.domain.xx/admin/</pre>
-<p>After passing the initial platform check, you will have to set an initial password to secure your website. If you forget it or want to change it later, just delete password.php. It will be generated from skretch next time when using Blogless. Now log in and after that you can do the following:</p>
+<p>After passing the initial platform check, you will have to set an initial password to secure your website. If you forget it or want to change it later, just delete password.php. It will be generated from skretch next time when using Blogless.</p>
+<h2>Articles</h2>
+<p>Now you are ready to write and manage your articles:</p>
 <ol>
+<li>If not yet done <strong>Login</strong> with your initially set username and password</li>
 <li>First press <strong>Settings</strong> to set some article Defaults and decide if you would like to generate an RSS feed, a sitemap.xml (good for Google) and if you would like to show a list of articles at the bottom of your sites homepage</li>
-<li>Press <strong>New Article</strong> to write a new article (empty the form fields to see a description)</li>
-<li>Press <strong>Edit Index</strong> to change this website's homepage index.html</li>
-<li>Press <strong>View Site</strong> to visit your website's homepage</li>
+<li>Press <strong>New Article</strong> to write a new article</li>
+<li>Press <strong>🔧 (Edit)</strong> to edit an article or change this website's homepage index.html</li>
+<li>Press <strong>🔎 (View)</strong> to read an article or your website's homepage</li>
+<li>Press <strong>✖ (Delete)</strong> to delete an article</li>
 <li><strong>Logout</strong></li>
 </ol>
 <h2>Default Settings</h2>
 <p>It is best to first go to the settings page and provide some defaults for your articles, like the default author for new articles, his web profile and some other settings. You can always make individual settings for each article later, for example for guest articles. If the twitter id is set, your articles will appear as a nice "<a href="http://www.blindfiveyearold.com/twitter-cards-are-rich-snippets-for-tweets">Twitter Cards</a>" (of type <a href="https://dev.twitter.com/cards/types/summary">summary</a>), if referenced in a tweet.</p>
 <p>Also check, if the automatically guessed base url is right (it should be - you could change it to the real site's url, if you are generating your articles offline and load them up).</p>
-<h2>Functionalities</h2>
+<h2>Options</h2>
 <p>Now decide, if you want to have certain functionalities switched on:</p>
 <ul>
 <li>Sitemap - this gives Google and other web crawlers the chance to get an overview of your site. It is good to switch it on, if you would like to get every article you did write found by Google or other search engines.</li>
@@ -65,6 +77,7 @@
 <h2>Write a new Article</h2>
 <p>Per default the article name is the actual date in ISO format (YYYY-MM-DD). Keep it, if you like to just write one article a day or less. For me it works pretty well. In the end you are completely free to name your articles how you like. Try to better use just ASCII characters and dashes. It will work with any unicode character, but the url may look a bit crazy in this case, hard to remember.</p>
 <p>If you edit the sites index.html file there will be no possibillity to change the filename, it's just index.html, the homepage of your site.</p>
+<p><strong>Beware: Before uploading images or attach files to an article, it first needs to be saved the first time.</strong></p>
 </div>
 </div>
 </article>
