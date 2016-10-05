@@ -267,7 +267,7 @@
 		$html .= '<p><textarea id="editor" name="content" placeholder="Your Text" rows="10">' . htmlspecialchars($article['content']) . '</textarea></p>' . "\n";
 		$html .= '<p><label for="author">Author:</label><input type="text" id="author" name="author" placeholder="Author Name" value="' . htmlspecialchars($article['author']) . '"></p>' . "\n";
 		$html .= '<p><label for="description">Description:</label><input type="text" id="description" name="description" placeholder="Description"  value="' . htmlspecialchars($article['description']) . '" required></p>' . "\n";
-		$html .= '<p><label for="language">Language Code</label><input type="text" id="language" name="language"  placeholder="Language, like en, de ir fr" value="' . htmlspecialchars($article['language']) . '" maxlength="2" required></p>' . "\n";
+		$html .= '<p><label for="language">Language Code</label><input type="text" id="language" name="language"  placeholder="Language, like en, de or fr" value="' . htmlspecialchars($article['language']) . '" maxlength="2" required></p>' . "\n";
 		$flag = $article['draft'] == true ? 'checked' : '';
 		$html .= '<p><label for="draft">Draft: </label><input type="checkbox" id="draft" title="Article will be excluded from rss, sitemap and article list!" name="draft" ' . $flag . '>' . "</p>\n";
 		$html .= "<details> \n";
