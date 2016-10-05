@@ -37,14 +37,14 @@
 			$config['baseurl'] = ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/';
 		$html .= '<form method="post" action="settings.php" autocomplete="off">' . "\n";
 		$html .= '<h2>Site Configuration</h2>' . "\n";
-		$html .= '<p><label for="sitename">Site Name:</label><input type="text" name="sitename"  placeholder="The Name of your Website" value="' . $config['sitename'] . '"></p>' . "\n";
-		$html .= '<p><label for="baseurl">Base URL:</label><input type="url" name="baseurl"  placeholder="The Base URL of your Domain" value="' . $config['baseurl'] . '"></p>' . "\n";
+		$html .= '<p><label for="sitename">Site Name:</label><input type="text" name="sitename"  placeholder="The Name of your Website" value="' . $config['sitename'] . '" required></p>' . "\n";
+		$html .= '<p><label for="baseurl">Base URL:</label><input type="url" name="baseurl"  placeholder="The Base URL of your Domain" value="' . $config['baseurl'] . '" required></p>' . "\n";
 		$html .= '<p><label for="locale">Locale Code: </label><input type="text" name="locale" placeholder="Locale Code (en_US,de_DE,...)" value="' . $config['locale'] . '" required ></p>' . "\n";
 		$html .= '<p><label for="dateformat">Date Format: </label><input type="text" name="dateformat" placeholder="e.g. for UK: %A, the %d%S of %B %Y (optional)" value="' . $config['dateformat'] . '" ></p>' . "\n";
 		$html .= '<p><label for="footer">Footer (HTML): </label><input type="text" name="footer" placeholder="HTML code for the footer at the bottom of each page" value="' . htmlspecialchars(hex2bin($config['footer'])) . '"></p>' . "\n";
 		$html .= '<p><label for="theme">Choose Theme: </label>' . theme_chooser() . '</p>';
 		$html .= '<h2>Article Defaults</h2>' . "\n";
-		$html .= '<p><label for="author">Author: </label><input type="text" name="author" placeholder="Author Name" value="' . $config['author'] . '" required ></p>' . "\n";
+		$html .= '<p><label for="author">Author: </label><input type="text" name="author" placeholder="Author Name" value="' . $config['author'] . '" required></p>' . "\n";
 		$html .= '<p><label for="email">Author\'s Email: </label><input type="text" name="email" placeholder="Author\'s Email (will not be shown in the Public)" value="' . $config['email'] . '" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></p>' . "\n";
 		$html .= '<p><label for="profile">Author\'s Profile: </label><input type="url" name="profile" placeholder="Author\'s Web Profile" value="' . $config['profile'] . '"></p>' . "\n";
 		$html .= '<p><label for="twitter">Twitter: </label><input type="text" id="twitter" name="twitter" pattern="^@[A-Za-z0-9_]{1,15}$" placeholder="Your Twitter ID" value="' . $config['twitter'] . '" /></p>' . "\n";
