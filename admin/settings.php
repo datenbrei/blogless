@@ -52,7 +52,7 @@
 		$html .= '<p><label for="fbappid">Facebook App ID: </label><input type="text" id="fbappid" name="fbappid" placeholder="Your Facebook Application ID" value="' . $config['fbappid'] . '" /></p>' . "\n";
 		$html .= '<p><label for="fbadmins">Facebook Admins: </label><input type="text" id="fbadmins" name="fbadmins" placeholder="Your Facebook Admin ID" value="' . $config['fbadmins'] . '" /></p>' . "\n";
 
-		$html .= '<h2>Site Functionalities</h2>' . "\n";
+		$html .= '<h2>Site Options</h2>' . "\n";
 		$flag = $config['rss'] == 'yes' ? 'checked' : '';
 		$html .= '<p><label for="rss">RSS-Feed: </label><input type="checkbox" id="rss" name="rss" ' . $flag . '></p>' . "\n";
 		$flag = $config['sitemap'] == 'yes' ? 'checked' : '';
