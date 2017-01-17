@@ -160,7 +160,7 @@
 			$article['title'] = !empty($matches[1]) ? htmlspecialchars_decode($matches[1]) : '';
 			preg_match('#<link rel="author" href="(.*)">#u', $original, $matches); 
 			$article['profile'] = !empty($matches[1]) ? $matches[1] : '';
-			preg_match('#<div .* itemprop="articleBody">(.*)</div>#ms', $original, $matches); 
+			preg_match('#<div .* itemprop="articleBody">(.*)</div>' . "\n" . '</article>#ms', $original, $matches); 
 			$article['content'] = !empty($matches[1]) ? $matches[1] : '';
 
 			$tags = get_meta_tags($path);
@@ -172,6 +172,7 @@
 			$article['twitter'] = !empty($tags['twitter']) ? htmlspecialchars_decode($tags['twitter']) : '';
 			$article['facebook'] = !empty($tags['facebook']) ? htmlspecialchars_decode($tags['facebook']) : '';
 			$article['gravatar'] = !empty($tags['gravatar']) ? $tags['gravatar'] : '';
+			$article['disqus'] = !empty($tags['disqus']) ? $tags['disqus'] : '';
 		}
 		else {
 			$article['language'] = '';
@@ -186,6 +187,7 @@
 			$article['twitter'] = '';
 			$article['facebook'] = '';
 			$article['gravatar'] = '';
+			$article['disqus'] = '';
 		}
 		
 		if(empty($article['language'])) $article['language'] = $config['language'];

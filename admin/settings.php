@@ -36,6 +36,7 @@
 		if ($config['baseurl'] == '') 
 			$config['baseurl'] = ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/';
 		$html .= '<form method="post" action="settings.php" autocomplete="off">' . "\n";
+
 		$html .= '<h2>Site Configuration</h2>' . "\n";
 		$html .= '<p><label for="sitename">Site Name:</label><input type="text" name="sitename"  placeholder="The Name of your Website" value="' . $config['sitename'] . '" required></p>' . "\n";
 		$html .= '<p><label for="baseurl">Base URL:</label><input type="url" name="baseurl"  placeholder="The Base URL of your Domain" value="' . $config['baseurl'] . '" required></p>' . "\n";
@@ -43,6 +44,8 @@
 		$html .= '<p><label for="dateformat">Date Format: </label><input type="text" name="dateformat" placeholder="e.g. for UK: %A, the %d%S of %B %Y (optional)" value="' . $config['dateformat'] . '" ></p>' . "\n";
 		$html .= '<p><label for="footer">Footer (HTML): </label><input type="text" name="footer" placeholder="HTML code for the footer at the bottom of each page" value="' . htmlspecialchars(hex2bin($config['footer'])) . '"></p>' . "\n";
 		$html .= '<p><label for="theme">Choose Theme: </label>' . theme_chooser() . '</p>';
+		$html .= '<p><label for="disqus">Disqus Name:</label><input type="text" name="disqus"  placeholder="Disqus Site Name for Commenting - setup on Disqus first" value="' . $config['disqus'] . '"></p>' . "\n";
+
 		$html .= '<h2>Article Defaults</h2>' . "\n";
 		$html .= '<p><label for="author">Author: </label><input type="text" name="author" placeholder="Author Name" value="' . $config['author'] . '" required></p>' . "\n";
 		$html .= '<p><label for="email">Author\'s Email: </label><input type="text" name="email" placeholder="Author\'s Email (will not be shown in the Public)" value="' . $config['email'] . '" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></p>' . "\n";
@@ -90,6 +93,7 @@
 		$pingback = !empty($_POST['pingback']) ? 'yes' : 'no';
 		$footer = !empty($_POST['footer']) ? $_POST['footer'] : '';
 		$theme = !empty($_POST['theme']) ? $_POST['theme'] : 'default';
+		$disqus = !empty($_POST['disqus']) ? $_POST['disqus'] : '';
 		
 		//Fix inconvenient input
 		if (substr($baseurl, -1) != '/')
@@ -115,6 +119,7 @@
 		$file .= '$config["pingback"] = ' . "'" . $pingback . "';\n";
 		$file .= '$config["footer"] = ' . "'" . bin2hex($footer) . "';\n";
 		$file .= '$config["theme"] = ' . "'" . $theme . "';\n";
+		$file .= '$config["disqus"] = ' . "'" . $disqus . "';\n";
 		$file .= '?>' . "\n";
 		file_put_contents('config.php', $file);
 		

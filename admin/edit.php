@@ -12,7 +12,7 @@
 	require('auth.php');
 		
 	// Add the meta part to the html header
-	function add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $facebook, $fbappid, $fbadmins, $draft) {
+	function add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $facebook, $fbappid, $fbadmins, $draft, $disqus) {
 
 		// meta names
 		if ($author)
@@ -57,6 +57,10 @@
 			$html .= '<meta property="fb:admins" content="' . $fbadmins . '" >' . "\n";
 		}		
 
+		if ($disqus) { 
+			$html .= '<meta name="disqus" content="' . $config['disqus'] . '" >' . "\n";
+		}		
+
 		return $html;
 	}
 	
@@ -86,6 +90,29 @@
 		if ($config['rss'] == 'yes') 
 			$html .= '<link rel="alternate" type="application/rss+xml" title="' . $_SERVER['HTTP_HOST'] . '" href="/feed.xml">' . "\n";
 			
+		return $html;
+	}
+	
+	// Add the link part to the html header, stylesheet, icons, ...
+	function add_disqus ($config, $dirname) {
+		$html = "<aside> \n";
+		$html .= '<div id="disqus_thread"></div>' . "\n";
+		$html .= '<script>' . "\n";
+		$html .= 'var disqus_config = function () {' . "\n";
+		$html .= "this.page.url = '" . $config['baseurl'] . $dirname . "';\n";
+		$html .= "this.page.identifier = '" . rtrim($dirname, '/') . "';\n";
+		$html .= '};' . "\n";
+		$html .= '(function() {' . "\n";
+		$html .= "var d = document, s = d.createElement('script');" . "\n";
+		$html .= "s.src = '//" . $config['disqus'] . ".disqus.com/embed.js';" . "\n";
+		$html .= "s.setAttribute('data-timestamp', +new Date());" . "\n";
+		$html .= '(d.head || d.body).appendChild(s);' . "\n";
+		$html .= '})();' . "\n";
+		$html .= '</script>' . "\n";
+		$html .= '<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>' . "\n";
+		$html .= "</aside> \n";
+		$html .= '<hr>' . "\n";
+		
 		return $html;
 	}
 	
@@ -284,6 +311,8 @@
 		$html .= '<p><label for="keywords">Keywords:</label><input type="text" id="keywords" name="keywords"  placeholder="Keywords (optional)" value="' . htmlspecialchars($article['keywords']) . '" ></p>' . "\n";
 		$html .= '<p><label for="twitter">Twitter: </label><input type="text" id="twitter" name="twitter" pattern="^@[A-Za-z0-9_]{1,15}$" placeholder="Your Twitter ID" value="' . htmlspecialchars($article['twitter']) . '" /></p>' . "\n";
 		$html .= '<p><label for="facebook">Facebook: </label><input type="text" id="facebook" name="facebook" placeholder="Your Facebook profile URL" value="' . htmlspecialchars($article['facebook']) . '" /></p>' . "\n";
+		$flag = $article['disqus'] != '' ? 'checked' : '';
+		$html .= '<p><label for="disqus">Comments: </label><input type="checkbox" id="disqus" title="Use Disqus Comments for this Article." name="disqus" ' . $flag . '>' . "</p>\n";
 		$html .= "</details> \n";
 		
 		$html .= '<p><input id="save" type="submit" value="Save">';
@@ -333,6 +362,7 @@
 		$keywords = !empty($_POST['keywords']) ? htmlspecialchars($_POST['keywords']) : false;
 		$content = !empty($_POST['content']) ? $_POST['content'] : false;
 		$draft = !empty($_POST['draft']) ? true : false;
+		$disqus = !empty($_POST['disqus']) && $config['disqus'] ? true : false;
 		
 		// remove image sizing from content
 		//<img src="gravatar.jpeg" alt="eee" width="232" height="232" />
@@ -352,7 +382,7 @@
 		$html .= '<title>' . $title . '</title>' . "\n";
 		$html .= "<meta charset=UTF-8> \n";
 		$html .= '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">' . "\n";
-		$html .= add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $facebook, $fbappid, $fbadmins, $draft);
+		$html .= add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $facebook, $fbappid, $fbadmins, $draft, $disqus);
 		$html .= add_link ($config, $profile, $dirname, $language);
 		$html .= '</head>' . "\n";
 		$html .= "\n";
@@ -363,6 +393,10 @@
 		$html .= '</article>' . "\n";
 		$html .= add_article_list($config, $dirname);
 		$html .= '<hr>' . "\n";
+
+		if ($disqus)
+			$html .= add_disqus ($config, $dirname);
+
 		if ($footer)
 			$html .= '<footer>' . $footer . '</footer>' . "\n";
 		else
