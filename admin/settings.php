@@ -10,11 +10,11 @@
 	require('config.php');
 	require('auth.php');
 	
-	function theme_chooser() {
+	function theme_chooser($current) {
 		$html = '<select name="theme">' . "\n";
 		$themes = get_theme_list();
 		foreach ($themes as $theme) {
-			$html .= '<option value="' . $theme . '" selected>' . ucfirst($theme) . '</option>';
+			$html .= '<option value="' . $theme . '"' . ($theme === $current ? ' selected' : '') . '>' . ucfirst($theme) . '</option>';
 		}
 		$html .= '</select>' . "\n";
 		return $html;
@@ -43,7 +43,7 @@
 		$html .= '<p><label for="locale">Locale Code: </label><input type="text" name="locale" placeholder="Locale Code (en_US,de_DE,...)" value="' . $config['locale'] . '" required ></p>' . "\n";
 		$html .= '<p><label for="dateformat">Date Format: </label><input type="text" name="dateformat" placeholder="e.g. for UK: %A, the %d%S of %B %Y (optional)" value="' . $config['dateformat'] . '" ></p>' . "\n";
 		$html .= '<p><label for="footer">Footer (HTML): </label><input type="text" name="footer" placeholder="HTML code for the footer at the bottom of each page" value="' . htmlspecialchars(hex2bin($config['footer'])) . '"></p>' . "\n";
-		$html .= '<p><label for="theme">Choose Theme: </label>' . theme_chooser() . '</p>';
+		$html .= '<p><label for="theme">Choose Theme: </label>' . theme_chooser($config['theme']) . '</p>';
 		$html .= '<p><label for="disqus">Disqus Name:</label><input type="text" name="disqus"  placeholder="Disqus Site Name for Commenting - setup on Disqus first" value="' . $config['disqus'] . '"></p>' . "\n";
 
 		$html .= '<h2>Article Defaults</h2>' . "\n";
