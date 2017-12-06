@@ -1,7 +1,7 @@
 <?php
 $config = [];
 $config["sitename"] = '';
-$config["baseurl"] = '';
+$config["basedir"] = '';
 $config["locale"] = 'en_US';
 $config["language"] = 'en';
 $config["dateformat"] = '%A, the %d%S of %B %Y';
