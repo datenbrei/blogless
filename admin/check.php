@@ -3,7 +3,7 @@
 	blogless - a blogless writing system
 	Author:  Martin Doering <martin@datenbrei.de>
 	Project: http://blogless.datenbrei.de
-	License: http://blogless.datenbrei.de/license.html
+	License: http://blogless.datenbrei.de/license/
 */
 
 	$ok = true;
@@ -70,21 +70,29 @@
 
 	function check_sessions() {
 		global $ok;
-		if (session_start()) { 
-			$html = '<p style="color:green;">☑  — The PHP session handler is correctly configured and operational for Blogless</p>' . "\n";
+		$html = '';
+		
+		if (session_status() == PHP_SESSION_NONE) {
+			if (session_start()) { 
+					$html = '<p style="color:green;">☑  — The PHP session handler is correctly configured and operational for Blogless</p>' . "\n";
+			}
+			else {
+				$ok = false;
+				$html = '<p style="color:red;">☒  — The PHP session handler is not configured correctly! No session can be initiated! Blogless will not work!</p>' . "\n";
+				if (ini_get('session.save_handler') != '') {
+					$html .= '<p style="color:black;">☝  — The "session.save_handler" in your php.ini is set to "' . ini_get('session.save_handler') . '".</p>' . "\n";
+					if (ini_get('session.save_path') != '')
+						$html .= '<p style="color:black;">☝  — The "session.save_path" in your php.ini is set to "' . ini_get('session.save_path') . '".</p>' . "\n";
+					else
+						$html .= '<p style="color:black;">☝  — The "session.save_path" in your php.ini is not set at all - but should be set!</p>' . "\n";
+				}
+				else {
+					$html .= '<p style="color:black;">☝  — The "session.save_handler" in your php.ini is not set at all - but should be set!</p>' . "\n";
+				}
+			}
 		}
 		else {
-			$ok = false;
-			$html = '<p style="color:red;">☒  — The PHP session handler is not configured correctly! No session can be initiated! Blogless will not work!</p>' . "\n";
-			if (ini_get('session.save_handler') != '') {
-				$html .= '<p style="color:black;">☝  — The "session.save_handler" in your php.ini is set to "' . ini_get('session.save_handler') . '".</p>' . "\n";
-				if (ini_get('session.save_path') != '')
-					$html .= '<p style="color:black;">☝  — The "session.save_path" in your php.ini is set to "' . ini_get('session.save_path') . '".</p>' . "\n";
-				else
-					$html .= '<p style="color:black;">☝  — The "session.save_path" in your php.ini is not set at all - but should be set!</p>' . "\n";
-			}
-			else
-				$html .= '<p style="color:black;">☝  — The "session.save_handler" in your php.ini is not set at all - but should be set!</p>' . "\n";
+			$html = '<p style="color:green;">☑  — The PHP session handler is correctly configured and operational for Blogless</p>' . "\n";
 		}
 		return $html;
 	}
@@ -109,7 +117,7 @@
 		$html .= '<h2>Check Directory Permissions</h2>' . "\n";
 		$html .= check_dir('Admin', '.');
 		$html .= check_dir('Themes', 'themes/');
-		$html .= check_dir('Article', '../');
+		$html .= check_dir('Article', '../articles/');
 		$html .= '<h2>Check File Permissions</h2>' . "\n";
 		$html .= check_file('config.php');
 		$html .= check_file('password.php');
@@ -117,10 +125,9 @@
 		$html .= '<hr>' . "\n";
 		
 		if ($ok) {
-			$html .= '<p>Everything ok. This check is no longer needed, the check.php file in your admin directory is now deleted!</p>' . "\n";
+			$html .= '<p>Everything ok.</p>' . "\n";
 			$html .= '<br>' . "\n";
-			$html .= '<p><a id="save" href="index.php">Go on and use Blogless by clicking here!</a></p>' . "\n";
-			unlink('check.php');
+			$html .= '<p><a id="save" href="settings.php">Go on and do some needed settings by clicking here!</a></p>' . "\n";
 		}
 		else {
 			$html .= '<p>Your Installation will not run Blogless! Check and fix your setup and run this test again by clicking below!</p>' . "\n";

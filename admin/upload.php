@@ -4,7 +4,7 @@
 	blogless - a blogless writing system
 	Author:  Martin Doering <martin@datenbrei.de>
 	Project: http://blogless.datenbrei.de
-	License: http://blogless.datenbrei.de/license.html
+	License: http://blogless.datenbrei.de/license/
 */
 
 	require_once('config.php');
@@ -13,11 +13,11 @@
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$name = (isset($_POST['name']) && $_POST['name'] != '') ? strtolower($_POST['name']) : null;
 		if ($name) {
-			$dir = '../' . $name . '/';
+			$dir = $config["basedir"] . DIRECTORY_SEPARATOR . $name . '/';
 			header('Location: edit.php?article=' . urlencode($name));
 		}
 		else {
-			$dir = '../';
+			$dir = $config["basedir"] . DIRECTORY_SEPARATOR;
 			header('Location: edit.php');
 		}
 		@mkdir ($dir);

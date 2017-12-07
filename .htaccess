@@ -1,1 +1,15 @@
-ErrorDocument 404 /404/index.html
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Let Admin go through
+RewriteRule ^admin/ - [L]
+
+# If a request tries to access /articles/ directly, redirect it to its canonical version 
+RewriteCond %{THE_REQUEST} articles/
+RewriteRule ^articles/(.*) /$1 [R=301,L]
+
+# Map everything else to /articles
+RewriteCond %{REQUEST_URI} !articles/
+RewriteRule ^(.*)$ /articles/$1 [L]
+</IfModule>
+

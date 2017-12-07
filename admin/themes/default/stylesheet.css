@@ -1,3 +1,5 @@
+/* Default stylesheet for Blogless */ 
+
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 @media print {
 	article { border-bottom:1px solid #F80; border-top:1px solid #F80; }
@@ -9,7 +11,9 @@ margin:0; padding:0; border:0; font-size:medium; font:inherit; vertical-align:ba
 }
 
 html { background-color:#FFF; font-family:'Lato',sans-serif; height:100%; }
-body { max-width:200mm; margin:0px auto; padding:30px 10px; min-height:100%; }
+body { max-width:200mm; margin:0px auto; padding: 0px 10px 30px; min-height:100%; }
+body nav { color:white; background-color:gray;  padding: 5px 10px 5px ; }
+body nav a { color:white; text-decoration:none; font-weight:bold; font-size:xx-large; line-height:120%;}
 body hr { color:#F80; background-color:#F80; border:#F80; height:1px; }
 article { line-height:160%; }
 article h2,h3,h4,h5,h6 { margin: 1em 0px; color:#F80; font-weight:bold; font-size:large; margin-top:1.5em; margin-bottom:0.5em; }

@@ -3,12 +3,13 @@
 	blogless - a blogless writing system
 	Author:  Martin Doering <martin@datenbrei.de>
 	Project: http://blogless.datenbrei.de
-	License: http://blogless.datenbrei.de/license.html
+	License: http://blogless.datenbrei.de/license/
 */
 
 	require('include.php');
 	require('auth.php');
 	
+	// recursively remove directory
 	function rrmdir($dir) { 
 		foreach(glob($dir . '/*') as $file) { 
 			if(is_dir($file)) rrmdir($file); else unlink($file); 
@@ -71,18 +72,18 @@
 		$file = filter_input(INPUT_POST, "file", FILTER_SANITIZE_STRING);
 		$choice = filter_input(INPUT_POST, "choice", FILTER_SANITIZE_STRING);
 	
-	
+		// delete a file from an article, a file in index or a whole article 
 		if ($choice == 'Delete') {
 			if ($article && $file && $file != 'index.html') {
-				unlink('../' . $article . '/' . $file);
+				unlink($config["basedir"] . DIRECTORY_SEPARATOR . $article . '/' . $file);
 				header('Location: edit.php?article=' . urlencode($article));
 			}
 			elseif ($file && $file != 'index.html') {
-				unlink('../' . $file);
+				unlink($config["basedir"] . DIRECTORY_SEPARATOR . $file);
 				header('Location: edit.php');
 			}
 			elseif ($article) {
-				rrmdir('../' . urldecode($article));
+				rrmdir($config["basedir"] . DIRECTORY_SEPARATOR . urldecode($article));
 				header('Location: index.php');
 			}
 			else

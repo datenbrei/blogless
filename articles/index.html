@@ -4,53 +4,45 @@
 <title>Blogless - Just Writing</title>
 <meta charset=UTF-8> 
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<meta name="author" content="Martin Döring">
 <meta name="created" content="2015-07-19">
 <meta name="description" content="A short Introduction to Blogless">
 <meta name="keywords" content="blogless, usage">
 <meta name="generator" content="blogless">
-<meta name="gravatar" content="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43">
-<meta name="twitter:card" content="summary" >
-<meta name="twitter:site" content="@datenbrei" >
-<meta name="twitter:title" content="Blogless - Just Writing" >
-<meta name="twitter:description" content="A short Introduction to Blogless" >
-<meta name="twitter:url"  content="http://localhost/">
-<meta name="twitter:image" content="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43.jpg?s=180" >
+<meta name="author" content="Martin Döring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Blogless - Just Writing">
-<meta property="og:url" content="http://localhost/">
+<meta property="og:url" content="http://localhost/articles/">
 <meta property="og:description" content="A short Introduction to Blogless">
-<meta property="og:site_name" content="localhost">
-<meta property="og:image" content="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43.jpg?s=180">
-<meta property="article:author" content="https://www.facebook.com/datenbrei" >
+<meta property="og:site_name" content="Blogless">
 <link rel="author" href="http://martin.datenbrei.de">
-<link rel="stylesheet" href="admin/themes/default/stylesheet.css" type="text/css" media="all">
+<link rel="stylesheet" href="stylesheet.css" type="text/css" media="all">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="alternate" href="http://localhost/" hreflang="en">
-<link rel="canonical" href="http://localhost/">
-<link rel="alternate" type="application/rss+xml" title="localhost:8080" href="/feed.xml">
+<link rel="alternate" href="http://localhost/articles/" hreflang="en">
+<link rel="canonical" href="http://localhost/articles/">
 </head>
 
 <body>
+<nav><a href="/">Blogless</a></nav>
 <article role="main" lang="en" itemscope itemtype="http://schema.org/Article">
 <header>
-<a id="sitename" href="http://localhost/">localhost</a>
 <div>
 <h1 itemprop="headline">Blogless - Just Writing</h1>
 <address><a href="http://martin.datenbrei.de" itemprop="author" rel="author">Martin Döring</a></address> &#8212;
 <time itemprop="datePublished" datetime="2015-07-19">Sunday, the 19th of July 2015</time>
-<time itemprop="dateModified" datetime="2016-07-26"></time>
+<time itemprop="dateModified" datetime="2017-12-06"></time>
 </div>
-<a href="http://martin.datenbrei.de" itemprop="author" rel="author"><img id="gravatar" itemprop="image" src="http://www.gravatar.com/avatar/41798e01ce378034508118ec66e05b43" title="Author" alt="Author"></a>
 </header>
 <div id="content" itemprop="articleBody">
 <div class="text">
 <h2>Installation</h2>
-<p>For using <a title="The Blogless Publishing System" href="../">Blogless</a> just upload the zip's content to your PHP enabled webspace. That's it.</p>
+<p>For using <a title="The Blogless Publishing System" href="https://hubbz.de/">Blogless</a> just upload the zip's content to your PHP enabled webspace. That's it.</p>
 <h2>Using Blogless</h2>
 <p>Go to your webbrowser and call <a title="Administration interface of your installation" href="admin/">http://your.domain.xx/admin/</a></p>
 <p>After passing the initial platform check, you will have to set an initial password to secure your website. If you forget it or want to change it later, just delete password.php. It will be generated from skretch next time when using Blogless.</p>
+<h2>Basic Settings</h2>
+<p>Then you are asked to make some basic settings. The paths f&uuml;r your directory structure and URL are guessed automatically and you should give your site at least a name. Some other settings or changes to them can be done later.</p>
+<p><strong>Attention</strong>: Blogless is delivered with a .htaccess file in the main directory, so that you do not need to address your webpages in the subdirectory "articles/", but can call them from the root directly (except for the admin subdir with the application files). But if you change the name of your "articles/" directory, you must adapt the .htaccess file accordingly!!!</p>
 <h2>Articles</h2>
 <p>Now you are ready to write and manage your articles:</p>
 <ol>
@@ -81,6 +73,6 @@
 </div>
 </article>
 <hr>
-<footer><a href="http://localhost/">localhost</a></footer>
+<footer><a href="http://localhost/articles/">Blogless</a></footer>
 </body>
 </html>

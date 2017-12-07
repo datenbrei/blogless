@@ -1,3 +1,5 @@
+/* Theme "Lessy" stylesheet for Blogless */ 
+
 @import url(http://fonts.googleapis.com/css?family=Arvo:400,700);
 @media print {
 	article { border-bottom:1px solid #404040; border-top:1px solid #404040; }

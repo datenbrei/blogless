@@ -3,7 +3,7 @@
 	blogless - a blogless writing system
 	Author:  Martin Doering <martin@datenbrei.de>
 	Project: http://blogless.datenbrei.de
-	License: http://blogless.datenbrei.de/license.html
+	License: http://blogless.datenbrei.de/license/
 */
 
 	require('include.php');
@@ -15,12 +15,12 @@
 	function add_meta($config, $author, $created, $description, $keywords, $email, $title, $dirname, $image, $twitter, $facebook, $fbappid, $fbadmins, $draft, $disqus) {
 
 		// meta names
-		if ($author)
-			$html .= '<meta name="author" content="' . $author . '">' . "\n";
-		$html .= '<meta name="created" content="' . $created . '">' . "\n";
+		$html = '<meta name="created" content="' . $created . '">' . "\n";
 		$html .= '<meta name="description" content="' . $description . '">' . "\n";
 		$html .= '<meta name="keywords" content="' . $keywords . '">' . "\n";
 		$html .= '<meta name="generator" content="blogless">' . "\n";
+		if ($author)
+			$html .= '<meta name="author" content="' . $author . '">' . "\n";
 		if ($draft)
 			$html .= '<meta name="draft" content="yes">' . "\n";
 		if ($email)
@@ -66,6 +66,7 @@
 	
 	// Add the link part to the html header, stylesheet, icons, ...
 	function add_link ($config, $profile, $dirname, $language) {
+		$html = '';
 		if ($profile) 
 			$html .= '<link rel="author" href="' . $profile . '">' . "\n";
 
@@ -74,12 +75,12 @@
 		//	$html .= '<link rel="pingback" href="' . $config['baseurl'] . 'admin/pingback.php" >' . "\n";
 
 		if (!$dirname) { 
-			$html .= '<link rel="stylesheet" href="admin/themes/' . $config['theme'] . '/stylesheet.css" type="text/css" media="all">' . "\n";
+			$html .= '<link rel="stylesheet" href="stylesheet.css" type="text/css" media="all">' . "\n";
 			$html .= '<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">' . "\n";
 			$html .= '<link rel="icon" href="favicon.ico" type="image/x-icon">' . "\n";
 		}
 		else {
-			$html .= '<link rel="stylesheet" href="../admin/themes/' . $config['theme'] . '/stylesheet.css" type="text/css" media="all">' . "\n";
+			$html .= '<link rel="stylesheet" href="../stylesheet.css" type="text/css" media="all">' . "\n";
 			$html .= '<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">' . "\n";
 			$html .= '<link rel="icon" href="../favicon.ico" type="image/x-icon">' . "\n";
 		}
@@ -118,7 +119,7 @@
 	
 	// See, if we can find an image for our article, fallback to gravatar, if possible
 	function find_image($config, $dirname, $email) {
-		$path = '../' . $dirname;
+		$path = $config["basedir"] . DIRECTORY_SEPARATOR . $dirname;
 		$jpgpath = $path . 'article.jpg';
 		$gifpath = $path . 'article.gif';
 		$pngpath = $path . 'article.png';
@@ -140,9 +141,8 @@
 	}
 	
 	// Add the article header with title, author, pubishing date, ...
-	function add_header($config, $title, $author, $profile, $created, $gravatar) {
-		$html .= '<header>' . "\n";
-		$html .= '<a id="sitename" href="' . $config['baseurl'] . '">' . $config['sitename'] . '</a>' . "\n";
+	function add_heading($config, $title, $author, $profile, $created, $gravatar) {
+		$html = '<header>' . "\n";
 		$html .= '<div>' . "\n";
 		$html .= '<h1 itemprop="headline">' . $title . '</h1>' . "\n";
 
@@ -231,19 +231,20 @@
 	// Write article to disk, ping remote hosts and update sitemap and rss
 	function save_article ($config, $dirname, $created, $html) {
 		if ($dirname)
-			@mkdir ('../' . $dirname);
-		file_put_contents('../' . $dirname . 'index.html', $html);
-		@touch('../' . $dirname, strtotime($created));
-		touch('../' . $dirname . 'index.html', strtotime($created));
+			@mkdir ($config["basedir"] . DIRECTORY_SEPARATOR . $dirname);
+		file_put_contents($config["basedir"] . DIRECTORY_SEPARATOR . $dirname . 'index.html', $html);
+		@touch($config["basedir"] . DIRECTORY_SEPARATOR . $dirname, strtotime($created));
+		touch($config["basedir"] . DIRECTORY_SEPARATOR . $dirname . 'index.html', strtotime($created));
 
 		if ($config['sitemap'] == 'yes')
 			update_sitemap();
 		else
-			@unlink('../sitemap.xml');
+			@unlink($config["basedir"] . DIRECTORY_SEPARATOR . 'sitemap.xml');
+
 		if ($config['rss'] == 'yes')
 			update_rss();
 		else
-			@unlink('../feed.xml');
+			@unlink($config["basedir"] . DIRECTORY_SEPARATOR . 'feed.xml');
 		
 		if ($config['pingback'] == 'yes') {
 			send_ping($html, $config['baseurl'] . $dirname);
@@ -275,15 +276,15 @@
 
 		$html .= '<script type="text/javascript" src="tinymce/tinymce.min.js"></script>';
 		$html .= '<script type="text/javascript">';
-        $html .= 'tinymce.init({';
-        $html .= 'selector: "#editor", ';
+    $html .= 'tinymce.init({';
+    $html .= 'selector: "#editor", ';
 		$html .= 'plugins: "link image charmap hr fullscreen emoticons code paste", ';
 		$html .= 'document_base_url: "' . $article['url'] . '", ';
 		$html .= 'image_dimensions: true, ';
 		$html .= 'object_resizing : false, ';
 		$html .= 'menubar: "false", ';
-        $html .= 'toolbar: "formatselect | bold italic underline strikethrough blockquote removeformat | bullist numlist hr | link unlink image charmap emoticons code | fullscreen"';
-        $html .= '});';
+    $html .= 'toolbar: "formatselect | bold italic underline strikethrough blockquote removeformat | bullist numlist hr | link unlink image charmap emoticons code | fullscreen"';
+    $html .= '});';
 		$html .= '</script>';
 
 		$html .= "</head> \n";
@@ -319,9 +320,9 @@
 		$html .= "</form> \n";
 		
 		if ($name)
-			$dir = '../' . $name . '/';
+			$dir = $config["basedir"] . DIRECTORY_SEPARATOR . $name . '/';
 		else
-			$dir = '../';
+			$dir = $config["basedir"] . DIRECTORY_SEPARATOR;
 
 		if (is_dir($dir)) {
 			$html .= "<hr> \n";
@@ -371,6 +372,7 @@
 		// just get fresh from config each time and don't store in article
 		$fbappid = !empty($config['fbappid']) ? $config['fbappid'] : false;
 		$fbadmins = !empty($config['fbadmins']) ? $config['fbadmins'] : false;
+		$header = !empty($config['header']) ? hex2bin($config['header']) : false;
 		$footer = !empty($config['footer']) ? hex2bin($config['footer']) : false;
 
 		$gravatar = $email ? 'http://www.gravatar.com/avatar/' . md5($email) : false;
@@ -387,8 +389,9 @@
 		$html .= '</head>' . "\n";
 		$html .= "\n";
 		$html .= '<body>' . "\n";
+		$html .= $header . "\n";
 		$html .= '<article role="main" lang="' . $language . '" itemscope itemtype="http://schema.org/Article">' . "\n";
-		$html .= add_header($config, $title, $author, $profile, $created, $gravatar);
+		$html .= add_heading($config, $title, $author, $profile, $created, $gravatar);
 		$html .= add_content($content);
 		$html .= '</article>' . "\n";
 		$html .= add_article_list($config, $dirname);
@@ -407,7 +410,7 @@
 		
 		// rename article and move folder before updating content
 		if ($dirname && $origname && $origname != $dirname)
-			rename("../$origname", "../$dirname");
+			rename($config["basedir"] . DIRECTORY_SEPARATOR . $origname, $config["basedir"] . DIRECTORY_SEPARATOR . $dirname);
 		
 		save_article ($config, $dirname, $created, $html);
 		header('Location: index.php');

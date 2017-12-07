@@ -3,7 +3,7 @@
 	blogless - a blogless writing system
 	Author:  Martin Doering <martin@datenbrei.de>
 	Project: http://blogless.datenbrei.de
-	License: http://blogless.datenbrei.de/license.html
+	License: http://blogless.datenbrei.de/license/
 */
 
 	// Check Login

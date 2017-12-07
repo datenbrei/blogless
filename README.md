@@ -14,4 +14,4 @@ Just put it in the root of you webserver and call it - manual included as index.
 Actually Blogless is in beta stage. It runs pretty well, but a bit of functionality is still missing. 
 
 ## Prerequisites
-Blogless needs at least PHP version 5.5, released at 20th of June 2013. Also session handling needs to be set up in php.ini. When starting, Blogless will do the needed checks automatically and tell you, if your setup is sufficient.
+Blogless needs at least PHP version 5.5, released at 20th of June 2013. Also session handling needs to be set up in php.ini, but normally this should be ok. When starting, Blogless will do the needed checks automatically and tell you, if your setup is sufficient.

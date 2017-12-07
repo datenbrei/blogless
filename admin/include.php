@@ -3,7 +3,7 @@
 	blogless - a blogless writing system
 	Author:  Martin Doering <martin@datenbrei.de>
 	Project: http://blogless.datenbrei.de
-	License: http://blogless.datenbrei.de/license.html
+	License: http://blogless.datenbrei.de/license/
 */
 
 	// Set internal character encoding to 'UTF-8' - needed for some functions below
@@ -37,8 +37,9 @@
 
 	function update_sitemap() {
 		global $config;
+		
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-		$xml .= '<?xml-stylesheet type="text/css" href="admin/themes/' . $config['theme'] . '/sitemap.css"?>' . "\n";
+		$xml .= '<?xml-stylesheet type="text/css" href="sitemap.css"?>' . "\n";
 		$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
 		$files = get_article_list();
 		foreach ($files as $name) {
@@ -58,7 +59,7 @@
 		$xml .= '<lastmod>' . $article['created'] . "</lastmod>\n";
 		$xml .= "</url>\n";
 		$xml .= "</urlset>\n";
-		file_put_contents('../sitemap.xml',$xml);
+		file_put_contents($config["basedir"] . DIRECTORY_SEPARATOR . 'sitemap.xml',$xml);
 	}			
 
 	// Generate RSS 2.0 feed
@@ -95,7 +96,9 @@
 	}
 
 	function get_article_list() {
-		$dir = new DirectoryIterator('../');
+		global $config;
+
+		$dir = new DirectoryIterator($config["basedir"] . DIRECTORY_SEPARATOR);
 		$files = array();
 		$unique = 1000;
 		foreach ($dir as $file) {
@@ -143,11 +146,11 @@
 		
 		$article = [];
 		if ($name) {
-			$path = '../' . $name . '/index.html';
+			$path = $config["basedir"] . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'index.html';
 			$article['url'] = $config['baseurl'] . $name . '/';
 		}
 		else {
-			$path = '../index.html';
+			$path = $config["basedir"] . DIRECTORY_SEPARATOR . 'index.html';
 			$article['url'] = $config['baseurl'];
 		}
 		
@@ -160,7 +163,7 @@
 			$article['title'] = !empty($matches[1]) ? htmlspecialchars_decode($matches[1]) : '';
 			preg_match('#<link rel="author" href="(.*)">#u', $original, $matches); 
 			$article['profile'] = !empty($matches[1]) ? $matches[1] : '';
-			preg_match('#<div .* itemprop="articleBody">(.*)</div>' . "\n" . '</article>#ms', $original, $matches); 
+			preg_match('#<div .* itemprop="articleBody">(.*)</div>\r?\n</article>#ms', $original, $matches); 
 			$article['content'] = !empty($matches[1]) ? $matches[1] : '';
 
 			$tags = get_meta_tags($path);
