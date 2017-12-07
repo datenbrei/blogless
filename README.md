@@ -8,7 +8,7 @@ Blogless is some kind of anti-blog. No subscribers, no community stress, no excu
 Blogless generates static HTML pages and lets you manage them from a simple to handle online interface. New articles can be written and later changed again. All the pretty SEO stuff, like descriptions, the now useless keywords, author name and profile, open graph meta infos and all that is included without beeing in the way — automagically.
 
 ## Installation
-Just put it in the root of you webserver and call it - manual included as index.html.
+Just put it in the root of you webserver and call it. More installation instructions are on the [Blogless website](http://blogless.datenbrei.de/installation/) and in articles/index.html.
 
 ## Status
 Actually Blogless is in beta stage. It runs pretty well, but a bit of functionality is still missing. 
