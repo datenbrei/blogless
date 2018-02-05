@@ -24,7 +24,7 @@
 		if ($draft)
 			$html .= '<meta name="draft" content="yes">' . "\n";
 		if ($email)
-			$html .= '<meta name="gravatar" content="http://www.gravatar.com/avatar/' . md5($email) . '">' . "\n";
+			$html .= '<meta name="gravatar" content="https://www.gravatar.com/avatar/' . md5($email) . '">' . "\n";
 
 		if ($twitter) { 
 			$html .= '<meta name="twitter:card" content="summary" >' . "\n";
@@ -133,7 +133,7 @@
 		elseif (is_readable($svgpath))
 			$image = $config['baseurl'] . $dirname . 'article.svg';
 		elseif ($email)
-			$image = 'http://www.gravatar.com/avatar/' . md5($email) . '.jpg?s=180';
+			$image = 'https://www.gravatar.com/avatar/' . md5($email) . '.jpg?s=180';
 		else
 			$image = false;
 
@@ -375,7 +375,7 @@
 		$header = !empty($config['header']) ? hex2bin($config['header']) : false;
 		$footer = !empty($config['footer']) ? hex2bin($config['footer']) : false;
 
-		$gravatar = $email ? 'http://www.gravatar.com/avatar/' . md5($email) : false;
+		$gravatar = $email ? 'https://www.gravatar.com/avatar/' . md5($email) : false;
 		$image = find_image($config, $dirname, $email);
 
 		$html = '<!DOCTYPE html>' . "\n";
