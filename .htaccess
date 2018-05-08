@@ -1,8 +1,9 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# Let Admin go through
+# Let Admin and Let's Encrypt go through
 RewriteRule ^admin/ - [L]
+RewriteRule ^\.well-known/ - [L]
 
 # If a request tries to access /articles/ directly, redirect it to its canonical version 
 RewriteCond %{THE_REQUEST} articles/
