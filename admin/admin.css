@@ -22,6 +22,7 @@ max-width:200mm;
 margin:0px auto;
 background-color:#FFF;
 min-height:100%;
+padding-bottom:2em;
 }
 
 main {
@@ -31,9 +32,8 @@ padding:30px 10px;
 
 nav {
 background:linear-gradient(to left,#EEE 0%,#999 100%);
-padding:5px 5px;
+padding:3px 3px;
 overflow: auto;
-height:39px;
 width:100%;
 margin:0 auto;
 position:fixed;
